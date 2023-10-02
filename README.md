@@ -30,3 +30,6 @@ npm run dev
 ```
 
 Dronematic should now be running on [localhost:3000](http://localhost:3000/).
+
+6. This app is also hosted on:
+https://dronematic.vercel.app/
