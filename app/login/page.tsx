@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Messages from './messages'
+import DronematicLogo from '/components/DronematicLogo'
 
 export default function Login() {
   return (
@@ -30,7 +31,8 @@ export default function Login() {
         action="/auth/sign-in"
         method="post"
       >
-        <label className="text-md" htmlFor="email">
+        <DronematicLogo />
+        <label className="text-md text-black" htmlFor="email">
           Email
         </label>
         <input
@@ -39,7 +41,7 @@ export default function Login() {
           placeholder="you@example.com"
           required
         />
-        <label className="text-md" htmlFor="password">
+        <label className="text-md text-black" htmlFor="password">
           Senha
         </label>
         <input
@@ -49,12 +51,12 @@ export default function Login() {
           placeholder="••••••••"
           required
         />
-        <button className="bg-green-700 rounded px-4 py-2 text-white mb-2">
+        <button className="bg-green-900 rounded px-4 py-2 text-white mb-2">
           Entrar
         </button>
         <button
           formAction="/auth/sign-up"
-          className="border border-gray-700 rounded px-4 py-2 text-white mb-2"
+          className="border border-gray-700 rounded px-4 py-2 text-black mb-2"
         >
           Cadastrar
         </button>
