@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Messages from './messages'
-import DronematicLogo from '/components/DronematicLogo'
+import DronematicLogo from 'components/DronematicLogo'
 
 export default function Login() {
   return (
