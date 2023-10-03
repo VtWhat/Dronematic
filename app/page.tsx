@@ -33,7 +33,7 @@ export default async function Index() {
           )}
         </div>
       </nav>
-
+      Página de explicação do projeto, funcionalidades, finalidade, etc
       
     </div>
   )

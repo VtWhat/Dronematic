@@ -1,6 +1,4 @@
 import './globals.css'
-import LogoutButton from '../components/LogoutButton'
-import DronematicLogo from '../components/DronematicLogo'
 
 export const metadata = {
   title: 'Dronematic',

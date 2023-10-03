@@ -30,7 +30,7 @@ export default async function Home() {
           )}
         </div>
       </nav>
-
+        Página de menu com opções
       
     </div>
   )
