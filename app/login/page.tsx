@@ -42,7 +42,7 @@ export default function Login() {
           Email
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-zinc-200 border mb-6"
+          className="rounded-md px-4 py-2 bg-zinc-200 border mb-6 text-black"
           name="email"
           placeholder="email@gmail.com"
           required
@@ -51,7 +51,7 @@ export default function Login() {
           Senha
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-zinc-200 border mb-6"
+          className="rounded-md px-4 py-2 bg-zinc-200 border mb-6 text-black"
           type="password"
           name="password"
           placeholder="••••••••"
