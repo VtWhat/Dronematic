@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Messages from './messages'
-import DronematicLogo from 'components/DronematicLogo'
+import Image from 'next/image'
 
 export default function Login() {
   return (
@@ -26,26 +26,32 @@ export default function Login() {
         Voltar
       </Link>
 
+
       <form
         className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
         action="/auth/sign-in"
         method="post"
       >
-        <DronematicLogo />
+        <Image
+          src="/dronematic-logo.png"
+          width={390}
+          height={400}
+          alt="Dronematic Logo"
+        />
         <label className="text-md text-black" htmlFor="email">
           Email
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          className="rounded-md px-4 py-2 bg-zinc-200 border mb-6"
           name="email"
-          placeholder="you@example.com"
+          placeholder="email@gmail.com"
           required
         />
         <label className="text-md text-black" htmlFor="password">
           Senha
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          className="rounded-md px-4 py-2 bg-zinc-200 border mb-6"
           type="password"
           name="password"
           placeholder="••••••••"
