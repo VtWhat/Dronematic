@@ -1,12 +1,14 @@
-import DronematicLogo from '@/components/DronematicLogo'
-import LogoutButton from '@/components/LogoutButton'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import DronematicLogo from '@/components/DronematicLogo'
+import LogoutButton from '@/components/LogoutButton'
+import { redirect } from 'next/navigation'
+
 
 export const dynamic = 'force-dynamic'
 
-export default async function Index() {
+export default async function Home() {
   const supabase = createServerComponentClient({ cookies })
 
   const {
@@ -24,12 +26,7 @@ export default async function Index() {
               <LogoutButton />
             </div>
           ) : (
-            <Link
-              href="/login"
-              className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-            >
-              Login
-            </Link>
+            redirect('/login')
           )}
         </div>
       </nav>
