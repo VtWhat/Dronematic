@@ -21,7 +21,7 @@ export default async function Home() {
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
           <DronematicLogo />
           {user ? (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 text-black">
               Olá, {user.email}!
               <LogoutButton />
             </div>
