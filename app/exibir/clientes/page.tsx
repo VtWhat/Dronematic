@@ -3,9 +3,6 @@ import { cookies } from 'next/headers'
 import BackButton from '@/components/BackButton'
 import NavBar from '@/components/NavBar'
 
-
-export const dynamic = 'force-dynamic'
-
 export default async function ExibirClientes() {
   const supabase = createServerComponentClient({ cookies })
 

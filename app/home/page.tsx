@@ -3,9 +3,6 @@ import { cookies } from 'next/headers'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 
-
-export const dynamic = 'force-dynamic'
-
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies })
 
