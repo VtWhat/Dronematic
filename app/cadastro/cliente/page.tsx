@@ -3,22 +3,24 @@ import { cookies } from 'next/headers'
 import BackButton from '@/components/BackButton'
 import FormCliente from './FormCliente'
 import NavBar from '@/components/NavBar'
+import { Database } from '@/supabase'
+import AccountForm from './AccountForm'
 
 export default async function CadastrarServiço() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient<Database>({ cookies })
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser()
+    data: { session },
+  } = await supabase.auth.getSession()
 
   return (
     <div className="w-full flex flex-col items-center">
-      <NavBar email={user?.email}/>
+      <NavBar email={session?.user.email}/>
         Formulário de cadastro de clientes
 
         <BackButton />
 
-        <FormCliente />
+        <AccountForm  session={session}/>
       
     </div>
   )

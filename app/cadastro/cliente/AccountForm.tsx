@@ -5,124 +5,75 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
-  const [loading, setLoading] = useState(true)
-  const [fullname, setFullname] = useState<string | null>(null)
-  const [username, setUsername] = useState<string | null>(null)
-  const [website, setWebsite] = useState<string | null>(null)
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null)
+  const [nome, setNome] = useState<string | null>(null)
+  const [email, setEmail] = useState<string | null>(null)
+  const [telefone, setTelefone] = useState<string | null>(null)
   const user = session?.user
 
-  const getProfile = useCallback(async () => {
-    try {
-      setLoading(true)
-
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`full_name, username, website, avatar_url`)
-        .eq('id', user?.id)
-        .single()
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setFullname(data.full_name)
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
-      }
-    } catch (error) {
-      alert('Error loading user data!')
-    } finally {
-      setLoading(false)
-    }
-  }, [user, supabase])
-
-  useEffect(() => {
-    getProfile()
-  }, [user, getProfile])
-
   async function updateProfile({
-    username,
-    website,
-    avatar_url,
+    nome,
+    email,
+    telefone,
   }: {
-    username: string | null
-    fullname: string | null
-    website: string | null
-    avatar_url: string | null
+    nome: string | null
+    email: string | null
+    telefone: string | null
   }) {
     try {
-      setLoading(true)
 
-      let { error } = await supabase.from('profiles').upsert({
-        id: user?.id as string,
-        full_name: fullname,
-        username,
-        website,
-        avatar_url,
-        updated_at: new Date().toISOString(),
+      let { error } = await supabase.from('clientes').insert({
+        nome,
+        email,
+        telefone,
+        user_id: user?.id as string,
       })
       if (error) throw error
-      alert('Profile updated!')
+      alert('Cliente cadastrado!')
     } catch (error) {
-      alert('Error updating the data!')
-    } finally {
-      setLoading(false)
+      alert('Erro ao cadastrar cliente!')
     }
   }
 
   return (
-    <div className="form-widget">
-      <div>
+    <div className="form-widget flex flex-col gap-3">
+      <div className="flex flex-col">
+        <label htmlFor="nome">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          value={nome || ''}
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setNome(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col">
         <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session?.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="fullName">Full Name</label>
         <input
-          id="fullName"
-          type="text"
-          value={fullname || ''}
-          onChange={(e) => setFullname(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
+          id="email"
           type="url"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
+          value={email || ''}
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="telefone">Telefone</label>
+        <input
+          id="telefone"
+          type="text"
+          value={telefone || ''}
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setTelefone(e.target.value)}
         />
       </div>
 
       <div>
         <button
-          className="button primary block"
-          onClick={() => updateProfile({ fullname, username, website, avatar_url })}
-          disabled={loading}
+            className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover text-white"
+            onClick={() => updateProfile({ nome, email, telefone })}
         >
-          {loading ? 'Loading ...' : 'Update'}
+          Cadastrar
         </button>
-      </div>
-
-      <div>
-        <form action="/auth/signout" method="post">
-          <button className="button block" type="submit">
-            Sign out
-          </button>
-        </form>
       </div>
     </div>
   )
