@@ -1,10 +1,9 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import BackButton from '@/components/BackButton'
-import FormCliente from './FormCliente'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
-import AccountForm from './AccountForm'
+import CadastroForm from './CadastroForm'
 
 export default async function CadastrarServiço() {
   const supabase = createServerComponentClient<Database>({ cookies })
@@ -20,7 +19,7 @@ export default async function CadastrarServiço() {
 
         <BackButton />
 
-        <AccountForm  session={session}/>
+        <CadastroForm  session={session}/>
       
     </div>
   )

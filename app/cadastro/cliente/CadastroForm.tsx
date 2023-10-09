@@ -5,19 +5,19 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
-  const [nome, setNome] = useState<string | null>(null)
-  const [email, setEmail] = useState<string | null>(null)
-  const [telefone, setTelefone] = useState<string | null>(null)
+  const [nome, setNome] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [telefone, setTelefone] = useState<string>("")
   const user = session?.user
 
-  async function updateProfile({
+  async function cadastrarCliente({
     nome,
     email,
     telefone,
   }: {
-    nome: string | null
-    email: string | null
-    telefone: string | null
+    nome: string
+    email: string
+    telefone: string
   }) {
     try {
 
@@ -70,7 +70,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
       <div>
         <button
             className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover text-white"
-            onClick={() => updateProfile({ nome, email, telefone })}
+            onClick={() => cadastrarCliente({ nome, email, telefone })}
         >
           Cadastrar
         </button>
