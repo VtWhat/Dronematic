@@ -1,9 +1,9 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
-export default function AccountForm({ session }: { session: Session | null }) {
+export default function CadastrarClientesForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
   const [nome, setNome] = useState<string>("")
   const [email, setEmail] = useState<string>("")

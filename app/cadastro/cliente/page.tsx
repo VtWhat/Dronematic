@@ -5,7 +5,7 @@ import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import CadastroForm from './CadastroForm'
 
-export default async function CadastrarServiço() {
+export default async function CadastrarCliente() {
   const supabase = createServerComponentClient<Database>({ cookies })
 
   const {
