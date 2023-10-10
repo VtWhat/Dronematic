@@ -7,6 +7,7 @@ import FetchClientes from './FetchClientes'
 
 export default async function ExibirClientes() {
   const supabase = createServerComponentClient<Database>({ cookies })
+  
 
   const {
     data: { session },
@@ -19,7 +20,7 @@ export default async function ExibirClientes() {
 
         <BackButton />
 
-        <FetchClientes  />
+        <FetchClientes />
       
     </div>
   )

@@ -33,6 +33,7 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
       if (error) throw error
 
       alert('Cliente cadastrado!')
+      router.prefetch("/exibir/clientes")
       router.push("/home")
 
     } catch (error) {

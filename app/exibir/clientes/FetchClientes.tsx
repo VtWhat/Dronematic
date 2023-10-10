@@ -1,6 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { Database } from '@/supabase'
+import BotoesEditarExcluir from './BotoesEditarExcluir'
 
 export default async function FetchClientes() {
   const supabase = createServerComponentClient<Database>({ cookies })
@@ -37,10 +38,8 @@ export default async function FetchClientes() {
                         </label>
                         {data.telefone}
                     </div>
-                    <div className="space-y-2 space-x-2 text-right">
-                        <button className="bg-black text-white rounded-full w-24">Editar</button>
-                        <button className="bg-black text-white rounded-full w-24">Excluir</button>
-                    </div>
+                    <BotoesEditarExcluir cliente_id={data.cliente_id} />
+                    
                 </div>
             )}
         </div>

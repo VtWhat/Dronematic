@@ -11,7 +11,7 @@ export default async function Home() {
   } = await supabase.auth.getUser()
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center gap-2">
         <NavBar email={user?.email}/>
         Página de menu com opções
         <Link
