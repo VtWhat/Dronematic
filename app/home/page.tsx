@@ -20,24 +20,24 @@ export default async function Home() {
         >
           Cadastrar Cliente
         </Link>
-        <Link
+        {/* <Link
           href="/cadastro/servico"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
         >
           Cadastrar Serviço
-        </Link>
+        </Link> */}
         <Link
           href="/exibir/clientes"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
         >
           Ver Clientes
         </Link>
-        <Link
+        {/* <Link
           href="/exibir/servicos"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
         >
           Ver Serviços
-        </Link>
+        </Link> */}
       
     </div>
   )
