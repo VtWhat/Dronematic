@@ -18,7 +18,7 @@ export default async function FetchClientes() {
     <div>
         <div className="space-y-4">
             {data?.map((data, index) => 
-                <div key={index} className="flex flex-col bg-zinc-200 hover:bg-green-500 rounded-3xl px-5 py-5 border-2 border-black border-solid shadow-md">
+                <div key={index} className="flex flex-col bg-zinc-200 hover:shadow-2xl rounded-3xl px-5 py-5 border-2 border-black border-solid shadow-md">
                     <div className="text-center">Cliente {index + 1}</div>
                     <div className="m-0.5">
                         <label className="mr-2">

@@ -16,12 +16,12 @@ export default function LogoutButton(data: { cliente_id: any }) {
     return (
         <div className="space-y-2 space-x-2 text-right">
             <button 
-            className="bg-black text-white rounded-full w-24"
+            className="bg-black hover:bg-green-900 text-white rounded-full w-24"
                 >Editar
             </button>
 
             <button 
-            className="bg-black text-white rounded-full w-24"
+            className="bg-black hover:bg-green-900 text-white rounded-full w-24"
             onClick={() => confirm("Você tem certeza que deseja excluir esse cliente? Todos os serviços cadastrados para esse cliente também serão excluidos.") ? handleDelete(data.cliente_id) : ""}
                 >Excluir
             </button>

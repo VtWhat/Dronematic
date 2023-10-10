@@ -24,7 +24,7 @@ export default async function Index() {
           ) : (
             <Link
               href="/login"
-              className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+              className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900"
             >
               Login
             </Link>
