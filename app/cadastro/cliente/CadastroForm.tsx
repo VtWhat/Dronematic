@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/navigation'
 
 export default function CadastrarClientesForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -9,6 +10,7 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
   const [email, setEmail] = useState<string>("")
   const [telefone, setTelefone] = useState<string>("")
   const user = session?.user
+  const router = useRouter()
 
   async function cadastrarCliente({
     nome,
@@ -27,8 +29,12 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
         telefone,
         user_id: user?.id as string,
       })
+
       if (error) throw error
+
       alert('Cliente cadastrado!')
+      router.push("/home")
+
     } catch (error) {
       alert('Erro ao cadastrar cliente!')
     }
