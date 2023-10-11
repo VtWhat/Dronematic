@@ -63,8 +63,8 @@ export default function UpdateClienteForm({ session }: { session: Session | null
 
       if (error) throw error
 
-      alert('Dados do Cliente atualizados!')
       router.prefetch("/exibir/clientes")
+      alert('Dados do Cliente atualizados!')
       router.push("/exibir/clientes")
 
     } catch (error) {
