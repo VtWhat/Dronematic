@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
+import z from 'zod'
 
 export default function CadastrarClientesForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
