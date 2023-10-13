@@ -46,6 +46,7 @@ export default function UpdateClienteForm({ session }: { session: Session | null
         setNome(data.nome)
         setEmail(data.email)
         setTelefone(data.telefone)
+        {toast.success("Dados carregados!", {id:"upCliToast"})}
       }
     } catch (error) {
       toast.error('Error ao carregar dados do cliente!')
