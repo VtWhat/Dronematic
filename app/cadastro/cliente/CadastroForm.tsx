@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
-import z from 'zod'
+import { z } from "zod";
+import toast from 'react-hot-toast'
 
 export default function CadastrarClientesForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -12,6 +13,21 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
   const [telefone, setTelefone] = useState<string>("")
   const user = session?.user
   const router = useRouter()
+
+  const ClienteSchema = z.object({
+    Nome: 
+      z.string().
+      min(3, "O nome precisa ter no mínimo 3 caractéres").
+      max(60, "O limite do nome é de 60 caracteres"),
+    Email: 
+      z.string().
+      max(100, "O limite de caractéres é de 100").
+      email("Por favor insira um email válido"),
+    Telefone: 
+      z.string().
+      min(8, "São necessários no mínimo 8 digitos").
+      max(15, "O limite de digitos é de 15 digitos")
+  })
 
   async function cadastrarCliente({
     nome,
@@ -22,23 +38,43 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
     email: string
     telefone: string
   }) {
-    try {
 
-      let { error } = await supabase.from('clientes').insert({
-        nome,
-        email,
-        telefone,
-        user_id: user?.id as string,
+    const clienteData = {
+      Nome: nome,
+      Email: email,
+      Telefone: telefone,
+    }
+
+    const result = ClienteSchema.safeParse(clienteData)
+    if(!result.success){
+
+      result.error.issues.forEach((issue) => {
+        let errorMessage = ""
+
+        errorMessage = issue.path + ": " + issue.message + ". ";
+        toast.error(errorMessage)
       })
 
-      if (error) throw error
 
-      alert('Cliente cadastrado!')
-      router.prefetch("/exibir/clientes")
-      router.push("/home")
+    }else{
+      try {
 
-    } catch (error) {
-      alert('Erro ao cadastrar cliente!')
+        let { error } = await supabase.from('clientes').insert({
+          nome: clienteData.Nome,
+          email: clienteData.Email,
+          telefone: clienteData.Telefone,
+          user_id: user?.id as string,
+        })
+
+        if (error) throw error
+
+        toast.success('Cliente cadastrado!')
+        router.prefetch("/exibir/clientes")
+        router.push("/home")
+
+      } catch (error) {
+        toast.error('Erro ao cadastrar cliente!')
+      }
     }
   }
 
@@ -48,9 +84,10 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
         <label htmlFor="nome">Nome</label>
         <input
           id="nome"
-          type="text"
+          type="name"
           value={nome || ''}
           className="bg-zinc-200 rounded-md px-2"
+          placeholder="João Vitor Helm"
           onChange={(e) => setNome(e.target.value)}
         />
       </div>
@@ -60,6 +97,7 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
           id="email"
           type="url"
           value={email || ''}
+          placeholder="jvthelms@gmail.com"
           className="bg-zinc-200 rounded-md px-2"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -68,8 +106,9 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
         <label htmlFor="telefone">Telefone</label>
         <input
           id="telefone"
-          type="text"
-          value={telefone || ''}
+          type="number"
+          value={telefone || ""}
+          placeholder="51995605886"
           className="bg-zinc-200 rounded-md px-2"
           onChange={(e) => setTelefone(e.target.value)}
         />

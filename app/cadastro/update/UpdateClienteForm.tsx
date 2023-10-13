@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { z } from 'zod'
+import toast from 'react-hot-toast'
 
 export default function UpdateClienteForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -12,6 +14,21 @@ export default function UpdateClienteForm({ session }: { session: Session | null
   const user = session?.user
   const router = useRouter()
   const clienteID = Number(useSearchParams().get('cliente_id'))
+
+  const ClienteSchema = z.object({
+    Nome: 
+      z.string().
+      min(3, "O nome precisa ter no mínimo 3 caractéres").
+      max(60, "O limite do nome é de 60 caracteres"),
+    Email: 
+      z.string().
+      max(100, "O limite de caractéres é de 100").
+      email("Por favor insira um email válido"),
+    Telefone: 
+      z.string().
+      min(8, "São necessários no mínimo 8 digitos").
+      max(15, "O limite de digitos é de 15 digitos")
+  })
 
   const getProfile = useCallback(async () => {
     try {
@@ -31,7 +48,7 @@ export default function UpdateClienteForm({ session }: { session: Session | null
         setTelefone(data.telefone)
       }
     } catch (error) {
-      alert('Error ao carregar dados do cliente!')
+      toast.error('Error ao carregar dados do cliente!')
     } finally {
     }
   }, [user, supabase])
@@ -42,7 +59,6 @@ export default function UpdateClienteForm({ session }: { session: Session | null
 
   console.log(clienteID, getProfile)
 
-
   async function updateCliente({
     nome,
     email,
@@ -52,23 +68,43 @@ export default function UpdateClienteForm({ session }: { session: Session | null
     email: string
     telefone: string
   }) {
-    try {
 
-      let { error } = await supabase.from('clientes').update({
-        nome,
-        email,
-        telefone,
+    const clienteData = {
+      Nome: nome,
+      Email: email,
+      Telefone: telefone,
+    }
+
+    const result = ClienteSchema.safeParse(clienteData)
+    if(!result.success){
+
+      result.error.issues.forEach((issue) => {
+        let errorMessage = ""
+
+        errorMessage = issue.path + ": " + issue.message + ". ";
+        toast.error(errorMessage)
       })
-      .eq("cliente_id", clienteID)
 
-      if (error) throw error
 
-      router.prefetch("/exibir/clientes")
-      alert('Dados do Cliente atualizados!')
-      router.push("/exibir/clientes")
+    }else{
+      try {
 
-    } catch (error) {
-      alert('Erro ao atualizar dados do cliente!')
+        let { error } = await supabase.from('clientes').update({
+          nome: clienteData.Nome,
+          email: clienteData.Email,
+          telefone: clienteData.Telefone,
+        })
+        .eq("cliente_id", clienteID)
+
+        if (error) throw error
+
+        router.prefetch("/exibir/clientes")
+        toast.success('Dados do Cliente atualizados!')
+        router.push("/exibir/clientes")
+
+      } catch (error) {
+        toast.error('Erro ao atualizar dados do cliente!')
+      }
     }
   }
 
@@ -98,8 +134,8 @@ export default function UpdateClienteForm({ session }: { session: Session | null
         <label htmlFor="telefone">Telefone</label>
         <input
           id="telefone"
-          type="text"
-          value={telefone || ''}
+          type="tel"
+          value={telefone || ""}
           className="bg-zinc-200 rounded-md px-2"
           onChange={(e) => setTelefone(e.target.value)}
         />
