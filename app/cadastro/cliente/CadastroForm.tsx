@@ -114,14 +114,12 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
         />
       </div>
 
-      <div>
         <button
             className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white"
             onClick={() => cadastrarCliente({ nome, email, telefone })}
         >
           Cadastrar
         </button>
-      </div>
     </div>
   )
 }

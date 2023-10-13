@@ -2,6 +2,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { Database } from '@/supabase'
 import BotoesEditarExcluir from './BotoesEditarExcluir'
+import BotaoRedirecionarParaCadastro from './BotaoRedirecionarParaCadastro'
 
 export default async function FetchClientes() {
   const supabase = createServerComponentClient<Database>({ cookies })
@@ -39,12 +40,18 @@ export default async function FetchClientes() {
                         {data.telefone}
                     </div>
                     <BotoesEditarExcluir cliente_id={data.cliente_id} />
-                    
                 </div>
             )}
+            {data?.length == 0 ? 
+                <div className="flex flex-col bg-zinc-200 hover:shadow-2xl rounded-3xl px-5 py-5 border-2 border-black border-solid shadow-md">
+                    <br />
+                    <h1>Você não possui nenhum cliente cadastrado!</h1>
+                    <br />
+                    <BotaoRedirecionarParaCadastro />
+                </div>
+                 : ""}
         </div>
         <br />
-        <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
 
   )

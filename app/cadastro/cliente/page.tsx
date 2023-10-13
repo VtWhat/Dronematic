@@ -16,7 +16,6 @@ export default async function CadastrarCliente() {
     <div className="w-full flex flex-col items-center">
       <NavBar email={session?.user.email}/>
         Formulário de cadastro de clientes
-
         <BackButton />
 
         <CadastroForm  session={session}/>

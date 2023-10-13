@@ -14,6 +14,7 @@ export default async function Home() {
     <div className="w-full flex flex-col items-center gap-2">
         <NavBar email={user?.email}/>
         Página de menu com opções
+        <br />
         <Link
           href="/cadastro/cliente"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"

@@ -141,14 +141,12 @@ export default function UpdateClienteForm({ session }: { session: Session | null
         />
       </div>
 
-      <div>
         <button
             className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white"
             onClick={() => updateCliente({ nome, email, telefone })}
         >
           Salvar
         </button>
-      </div>
     </div>
   )
 }
