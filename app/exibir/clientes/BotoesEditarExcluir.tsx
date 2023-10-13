@@ -12,6 +12,7 @@ export default function EditAndDeleteButton(data: { cliente_id: any }) {
 
     const handleDelete = async (id: any) => {
         const res = await supabase.from("clientes").delete().eq("cliente_id", id)
+        toast.success("Cliente excluido!")
         router.refresh()
       }
 
@@ -38,7 +39,7 @@ export default function EditAndDeleteButton(data: { cliente_id: any }) {
                     <div className="text-center space-x-1">
                         <button 
                             className="bg-red-700 hover:bg-red-900 text-white rounded-full w-24" 
-                            onClick={() => handleDelete(data.cliente_id)}>
+                            onClick={() => {handleDelete(data.cliente_id),toast.dismiss(t.id="1"), toast.dismiss(t.id="2")}}>
                             Excluir
                         </button>
                         <button 
