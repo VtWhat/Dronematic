@@ -29,16 +29,71 @@ export default async function FetchClientes() {
                     </div>
                     <div className="m-0.5">
                         <label className="mr-2">
+                            Sobrenome:
+                        </label>
+                        {data.sobrenome}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
                             Email: 
                         </label>
                         {data.email}
                     </div>
                     <div className="m-0.5">
                         <label className="mr-2">
-                            Telefone: 
+                            Telefone 1: 
                         </label>
-                        {data.telefone}
+                        {data.telefone_1}
                     </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            Telefone 2: 
+                        </label>
+                        {data.telefone_2}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            CPF: 
+                        </label>
+                        {data.cpf}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            Cidade: 
+                        </label>
+                        {data.cidade}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            Estado: 
+                        </label>
+                        {data.estado}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            Bairro: 
+                        </label>
+                        {data.bairro}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            Rua: 
+                        </label>
+                        {data.rua}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            Numero: 
+                        </label>
+                        {data.numero}
+                    </div>
+                    <div className="m-0.5">
+                        <label className="mr-2">
+                            CEP: 
+                        </label>
+                        {data.cep}
+                    </div>
+
                     <BotoesEditarExcluir cliente_id={data.cliente_id} />
                 </div>
             )}

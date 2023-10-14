@@ -11,27 +11,57 @@ export interface Database {
     Tables: {
       clientes: {
         Row: {
+          bairro: string
+          cep: string
+          cidade: string
           cliente_id: number
+          cpf: string
           email: string
+          estado: string
           inserted_at: string
           nome: string
-          telefone: string
+          numero: string
+          rua: string
+          sobrenome: string
+          telefone_1: string
+          telefone_2: string | null
+          updated_at: string | null
           user_id: string
         }
         Insert: {
+          bairro: string
+          cep: string
+          cidade: string
           cliente_id?: number
+          cpf: string
           email: string
+          estado: string
           inserted_at?: string
           nome: string
-          telefone: string
+          numero: string
+          rua: string
+          sobrenome: string
+          telefone_1: string
+          telefone_2?: string | null
+          updated_at?: string | null
           user_id: string
         }
         Update: {
+          bairro?: string
+          cep?: string
+          cidade?: string
           cliente_id?: number
+          cpf?: string
           email?: string
+          estado?: string
           inserted_at?: string
           nome?: string
-          telefone?: string
+          numero?: string
+          rua?: string
+          sobrenome?: string
+          telefone_1?: string
+          telefone_2?: string | null
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
