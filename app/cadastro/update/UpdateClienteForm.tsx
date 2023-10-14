@@ -5,7 +5,6 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 import { useRouter, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
-import { time } from 'console'
 
 export default function UpdateClienteForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
