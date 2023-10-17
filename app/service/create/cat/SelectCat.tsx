@@ -2,13 +2,15 @@
 import { useEffect, useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { z } from "zod";
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 
-export default function SelectCustomer(data: {cliente_id: any}) {
+export default function SelectCustomer() {
   const supabase = createClientComponentClient<Database>()
+
+  const clienteID = Number(useSearchParams().get('cliente_id'))
 
   return (
     <div className='w-full flex flex-col items-center gap-2'>

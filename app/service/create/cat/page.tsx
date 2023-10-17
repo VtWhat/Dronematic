@@ -3,8 +3,9 @@ import { cookies } from 'next/headers'
 import BackButton from '@/components/BackButton'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
+import SelectCat from './SelectCat'
 
-export default async function SelectCat() {
+export default async function SelectCategory() {
   const supabase = createServerComponentClient<Database>({ cookies })
 
   const {
