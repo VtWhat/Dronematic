@@ -21,18 +21,19 @@ export default async function Home() {
         >
           Cadastrar Cliente
         </Link>
-        {/* <Link
-          href="/cadastro/servico"
-          className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-        >
-          Cadastrar Serviço
-        </Link> */}
         <Link
           href="/customer/show"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
         >
           Ver Clientes
         </Link>
+        <Link
+          href="/service/create"
+          className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
+        >
+          Cadastrar Serviço
+        </Link>
+        
         {/* <Link
           href="/exibir/servicos"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
