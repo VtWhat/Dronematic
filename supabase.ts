@@ -73,32 +73,132 @@ export interface Database {
           }
         ]
       }
+      config: {
+        Row: {
+          aspect_ratio: string
+          auto_iso_limit: string | null
+          batteries: string | null
+          camera: string
+          color_mode: string
+          config_id: number
+          drone: string
+          eis: string
+          ev: string | null
+          filter: string | null
+          fov: string
+          iso: string | null
+          lens: string | null
+          servico_id: number
+          shutter: string | null
+          user_id: string
+          video_quality: string
+          wb: string | null
+        }
+        Insert: {
+          aspect_ratio: string
+          auto_iso_limit?: string | null
+          batteries?: string | null
+          camera: string
+          color_mode: string
+          config_id?: never
+          drone: string
+          eis: string
+          ev?: string | null
+          filter?: string | null
+          fov: string
+          iso?: string | null
+          lens?: string | null
+          servico_id: number
+          shutter?: string | null
+          user_id: string
+          video_quality: string
+          wb?: string | null
+        }
+        Update: {
+          aspect_ratio?: string
+          auto_iso_limit?: string | null
+          batteries?: string | null
+          camera?: string
+          color_mode?: string
+          config_id?: never
+          drone?: string
+          eis?: string
+          ev?: string | null
+          filter?: string | null
+          fov?: string
+          iso?: string | null
+          lens?: string | null
+          servico_id?: number
+          shutter?: string | null
+          user_id?: string
+          video_quality?: string
+          wb?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "config_servico_id_fkey"
+            columns: ["servico_id"]
+            referencedRelation: "servicos"
+            referencedColumns: ["servico_id"]
+          },
+          {
+            foreignKeyName: "config_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       servicos: {
         Row: {
-          altura: string
+          bairro: string
+          categoria: string
+          cidade: string
           cliente_id: number
-          id: number
+          date: string
+          description: string
+          estado: string
+          height: string | null
           inserted_at: string
-          local: string
-          tipo_servico: string
+          numero: string
+          route: string | null
+          rua: string
+          servico_id: number
+          target: string
           user_id: string
         }
         Insert: {
-          altura: string
+          bairro: string
+          categoria: string
+          cidade: string
           cliente_id: number
-          id?: number
+          date: string
+          description: string
+          estado: string
+          height?: string | null
           inserted_at?: string
-          local: string
-          tipo_servico: string
+          numero: string
+          route?: string | null
+          rua: string
+          servico_id?: number
+          target: string
           user_id: string
         }
         Update: {
-          altura?: string
+          bairro?: string
+          categoria?: string
+          cidade?: string
           cliente_id?: number
-          id?: number
+          date?: string
+          description?: string
+          estado?: string
+          height?: string | null
           inserted_at?: string
-          local?: string
-          tipo_servico?: string
+          numero?: string
+          route?: string | null
+          rua?: string
+          servico_id?: number
+          target?: string
           user_id?: string
         }
         Relationships: [
