@@ -12,44 +12,24 @@ export default function SelectCustomer() {
 
   const clienteID = Number(useSearchParams().get('cliente_id'))
 
+  let categorias: string[] = ['Fotografia Aérea', 'Filmagem e Vídeo', 'Vídeo Imobiliário', 'Filmagem de Evento', 'Casamento', 'Vídeo Institucional', 'Inspeção Técnica','Inspeção de Painéis Solares','Acompanhamento de Obras','Mapeamento 3D', 'Agro', 'Outros'];
+
   return (
     <div className='w-full flex flex-col items-center gap-2'>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Fotografia Aérea
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Filmagem e Vídeo
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Vídeo Imobiliário
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Filmagem de Evento
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Casamento
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Vídeo Institucional
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Inspeção Técnica
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Inspeção de Painéis Solares
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Acompanhamento de Obras
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Mapeamento 3D
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Agro
-        </button>
-        <button className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            >Outros
-        </button>
+        {categorias?.map((cat) => 
+        <Link
+        href={{
+            pathname: '/service/create/form',
+            query: "cliente_id="+clienteID.toString()+"&cat="+cat
+        }}
+        >
+            <button 
+            className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
+            onClick={() => toast.success("Categoria Selecionada!")}
+                >{cat}
+            </button>
+        </Link>
+        )}
     </div>
   )
 }
