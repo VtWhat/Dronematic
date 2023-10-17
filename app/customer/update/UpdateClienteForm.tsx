@@ -196,9 +196,9 @@ export default function UpdateClienteForm({ session }: { session: Session | null
 
         if (error) throw error
 
-        router.prefetch("/exibir/clientes")
+        router.prefetch("/customer/show")
         toast.success('Dados do Cliente atualizados!')
-        router.push("/exibir/clientes")
+        router.push("/customer/show")
 
       } catch (error) {
         toast.error('Erro ao atualizar dados do cliente!')

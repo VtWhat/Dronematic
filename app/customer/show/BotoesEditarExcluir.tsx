@@ -20,7 +20,7 @@ export default function EditAndDeleteButton(data: { cliente_id: any }) {
         <div className="space-y-2 space-x-2 text-right">
             <Link
                 href={{
-                    pathname: '/cadastro/update',
+                    pathname: '/customer/update',
                     query: data
                 }}
                 >

@@ -16,7 +16,7 @@ export default async function Home() {
         Página de menu com opções
         <br />
         <Link
-          href="/cadastro/cliente"
+          href="/customer/create"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
         >
           Cadastrar Cliente
@@ -28,7 +28,7 @@ export default async function Home() {
           Cadastrar Serviço
         </Link> */}
         <Link
-          href="/exibir/clientes"
+          href="/customer/show"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
         >
           Ver Clientes
