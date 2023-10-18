@@ -4,6 +4,7 @@ import BackButton from '@/components/BackButton'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import SelectCustomer from './SelectCustomer'
+import BotaoRedirecionarParaCadastro from '@/app/customer/show/BotaoRedirecionarParaCadastro'
 
 export default async function CadastrarServico() {
   const supabase = createServerComponentClient<Database>({ cookies })
@@ -48,6 +49,14 @@ export default async function CadastrarServico() {
                 </div>
             </div>
         )}
+        {data?.length == 0 ? 
+                <div className="flex flex-col bg-zinc-200 hover:shadow-2xl rounded-3xl px-5 py-5 border-2 border-black border-solid shadow-md">
+                    <br />
+                    <h1>Você não possui nenhum cliente cadastrado!</h1>
+                    <br />
+                    <BotaoRedirecionarParaCadastro />
+                </div>
+                 : ""}
     </div>
   )
 }

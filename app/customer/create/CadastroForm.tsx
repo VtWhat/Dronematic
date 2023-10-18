@@ -155,7 +155,7 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
         if (error) throw error
 
         toast.success('Cliente cadastrado!')
-        router.prefetch("/exibir/clientes")
+        router.prefetch("/customer/show")
         router.push("/home")
 
       } catch (error) {

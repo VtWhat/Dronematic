@@ -8,7 +8,7 @@ export default function BotaoRedirecionarParaCadastro() {
     return (
         <button 
             className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white text-center"
-            onClick={() =>router.push("/cadastro/cliente")}
+            onClick={() =>router.push("/customer/create")}
         >Cadastrar Clientes
         </button>
     )
