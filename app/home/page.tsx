@@ -34,12 +34,12 @@ export default async function Home() {
           Cadastrar Serviço
         </Link>
         
-        {/* <Link
-          href="/exibir/servicos"
+        <Link
+          href="/service/show"
           className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
         >
           Ver Serviços
-        </Link> */}
+        </Link>
       
     </div>
   )
