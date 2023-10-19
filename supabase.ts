@@ -75,63 +75,54 @@ export interface Database {
       }
       config: {
         Row: {
-          aspect_ratio: string
+          aspect_ratio: string | null
           auto_iso_limit: string | null
-          batteries: string | null
           camera: string
-          color_mode: string
+          color_mode: string | null
           config_id: number
           drone: string
-          eis: string
-          ev: string | null
+          eis: string | null
           filter: string | null
-          fov: string
+          fov: string | null
           iso: string | null
-          lens: string | null
           servico_id: number
           shutter: string | null
           user_id: string
-          video_quality: string
+          video_quality: string | null
           wb: string | null
         }
         Insert: {
-          aspect_ratio: string
+          aspect_ratio?: string | null
           auto_iso_limit?: string | null
-          batteries?: string | null
           camera: string
-          color_mode: string
+          color_mode?: string | null
           config_id?: never
           drone: string
-          eis: string
-          ev?: string | null
+          eis?: string | null
           filter?: string | null
-          fov: string
+          fov?: string | null
           iso?: string | null
-          lens?: string | null
           servico_id: number
           shutter?: string | null
           user_id: string
-          video_quality: string
+          video_quality?: string | null
           wb?: string | null
         }
         Update: {
-          aspect_ratio?: string
+          aspect_ratio?: string | null
           auto_iso_limit?: string | null
-          batteries?: string | null
           camera?: string
-          color_mode?: string
+          color_mode?: string | null
           config_id?: never
           drone?: string
-          eis?: string
-          ev?: string | null
+          eis?: string | null
           filter?: string | null
-          fov?: string
+          fov?: string | null
           iso?: string | null
-          lens?: string | null
           servico_id?: number
           shutter?: string | null
           user_id?: string
-          video_quality?: string
+          video_quality?: string | null
           wb?: string | null
         }
         Relationships: [
@@ -153,52 +144,49 @@ export interface Database {
         Row: {
           bairro: string
           categoria: string
+          cep: string
           cidade: string
           cliente_id: number
           date: string
           description: string
           estado: string
-          height: string | null
           inserted_at: string
           numero: string
           route: string | null
           rua: string
           servico_id: number
-          target: string
           user_id: string
         }
         Insert: {
           bairro: string
           categoria: string
+          cep: string
           cidade: string
           cliente_id: number
           date: string
           description: string
           estado: string
-          height?: string | null
           inserted_at?: string
           numero: string
           route?: string | null
           rua: string
           servico_id?: number
-          target: string
           user_id: string
         }
         Update: {
           bairro?: string
           categoria?: string
+          cep?: string
           cidade?: string
           cliente_id?: number
           date?: string
           description?: string
           estado?: string
-          height?: string | null
           inserted_at?: string
           numero?: string
           route?: string | null
           rua?: string
           servico_id?: number
-          target?: string
           user_id?: string
         }
         Relationships: [

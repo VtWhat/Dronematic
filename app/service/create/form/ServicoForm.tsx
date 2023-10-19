@@ -1,25 +1,38 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import { SetStateAction, useCallback, useEffect, useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { z } from "zod";
+import { date, z } from "zod";
 import toast from 'react-hot-toast'
 
 export default function CadastrarServicoForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
 
   const clienteID = Number(useSearchParams().get('cliente_id'))
-  const categ = Number(useSearchParams().get('cat'))
+  const categoria = String(useSearchParams().get('cat'))
 
   //cliente
   const [nome, setNome] = useState<string>("")
   const [sobrenome, setSobrenome] = useState<string>("")
   const [email, setEmail] = useState<string>("")
 
-  //serviço
+  // serviço
+  const [description, setDescription] = useState<string>("")
+  const [route, setRoute] = useState<string>("")
 
-  //especificações
+  //local de voo
+  const [cidade, setCidade] = useState<string>("")
+  const [estado, setEstado] = useState<string>("")
+  const [bairro, setBairro] = useState<string>("")
+  const [rua, setRua] = useState<string>("")
+  const [numero, setNumero] = useState<string>("")
+  const [cep, setCep] = useState<string>("")
+
+  //dia do voo
+  const [diavoo, setDiavoo] = useState<string>("")
+
+  //config
   const [drone, setDrone] = useState<string>("")
   const [cam, setCam] = useState<string>("")
   const [filtro, setFiltro] = useState<string>("")
@@ -31,29 +44,13 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   const [iso, setIso] = useState<string>("")
   const [isol, setIsol] = useState<string>("")
   const [shutter, setShutter] = useState<string>("")
-  const [ev, setEv] = useState<string>("")
   const [wb, setWb] = useState<string>("")
-
-
-
-
 
   const user = session?.user
   const router = useRouter()
 
   const ServicoSchema = z.object({
-    Nome: 
-      z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres"),
-    Sobrenome: 
-      z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres"),
-    Email: 
-      z.string().
-      max(100, "Máximo 100 caractéres").
-      email("Por favor insira um email válido"),
+
     })
 
     const getCliente = useCallback(async () => {
@@ -85,15 +82,7 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
         getCliente()
       }, [user, getCliente])
 
-  async function cadastrarServico({
-    nome,
-    sobrenome,
-    email,
-  }: {
-    email: string
-    nome: string
-    sobrenome: string
-  }) {
+  async function cadastrarServico() {
 
     const clienteData = {
       Nome: nome,
@@ -114,15 +103,41 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
 
     }else{
       try {
+        const { data, error } = await supabase.from('servicos').insert({
+          cliente_id: clienteID,
+          categoria: categoria,
+          user_id: user?.id as string,
+          bairro: bairro,
+          cep: cep,
+          cidade: cidade,
+          date: diavoo,
+          description: description,
+          estado: estado,
+          numero: numero,
+          route: route,
+          rua: rua,
+        }).select().single()
 
-        // let { error } = await supabase.from('clientes').insert({
-        //   nome: clienteData.Nome,
-        //   sobrenome: clienteData.Sobrenome,
-        //   email: clienteData.Email,
-        //   user_id: user?.id as string,
-        // })
+      if ( !error ) {
+        await supabase.from('config').insert({
+          servico_id: data.servico_id,
+          user_id: user?.id as string,
+          drone: drone,
+          camera: cam,
+          filter: filtro,
+          aspect_ratio: aspect,
+          video_quality: videoq,
+          fov: fov,
+          eis: eis,
+          color_mode: color,
+          iso: iso,
+          auto_iso_limit: isol,
+          shutter: shutter,
+          wb: wb,
+        })
+      }
 
-        // if (error) throw error
+        if (error) throw error
 
         toast.success('Serviço cadastrado!')
         router.prefetch("/service/show")
@@ -176,8 +191,112 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
       </div>
     </div>
     <div>Informações do serviço
-
+      <div className="flex flex-col">
+          <label htmlFor="desc">Descrição</label>
+          <input
+            id="desc"
+            type="text"
+            value={description || ""}
+            placeholder="O que deve ser feito"
+            className="bg-zinc-200 rounded-md px-2"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="route">Rota de voo</label>
+          <input
+            id="route"
+            type="text"
+            value={route || ""}
+            placeholder="A rota a ser seguida"
+            className="bg-zinc-200 rounded-md px-2"
+            onChange={(e) => setRoute(e.target.value)}
+          />
+        </div>
     </div>
+
+    <div>Local de Voo
+
+    <div className="flex flex-col">
+        <label htmlFor="cidade">Cidade</label>
+        <input
+          id="cidade"
+          type="text"
+          value={cidade || ""}
+          placeholder="Gravataí"
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setCidade(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="estado">Estado</label>
+        <input
+          id="estado"
+          type="text"
+          value={estado || ""}
+          placeholder="RS"
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setEstado(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="bairro">Bairro</label>
+        <input
+          id="bairro"
+          type="text"
+          value={bairro || ""}
+          placeholder="Sítio Gaúcho"
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setBairro(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="rua">Rua</label>
+        <input
+          id="rua"
+          type="text"
+          value={rua || ""}
+          placeholder="Rua Comandante Zero"
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setRua(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="numero">Numero</label>
+        <input
+          id="numero"
+          type="number"
+          value={numero || ""}
+          placeholder="46"
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setNumero(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="cep">CEP</label>
+        <input
+          id="cep"
+          type="number"
+          value={cep || ""}
+          placeholder="94195060"
+          className="bg-zinc-200 rounded-md px-2"
+          onChange={(e) => setCep(e.target.value)}
+        />
+      </div>
+    </div>
+
+    <div className="flex flex-col">Data
+      <label htmlFor="diavoo">Dia do Voo</label>
+      <div>
+        <input
+        type="datetime-local"
+        id="diavoo"
+        name="diavoo"
+        value= {diavoo}
+        onChange={(e) => setDiavoo(e.target.value)}/>
+      </div>
+    </div>
+
     <div>Especificações
 
     <div className="flex flex-col">
@@ -416,13 +535,14 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
         <option value="5200K">5200K</option>
         <option value="5100K">5100K</option>
         <option value="5000K">5000K</option>
+        <option value="Auto">Auto</option>
       </select>
     </div>
   </div>
 
         <button
             className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            onClick={() => cadastrarServico({ nome, sobrenome, email})}
+            onClick={() => cadastrarServico()}
         >
           Cadastrar
         </button>
