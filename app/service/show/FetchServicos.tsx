@@ -15,25 +15,16 @@ export default async function FetchServicos() {
     data 
   } = await supabase.from('servicos').select('*, config!inner(*), clientes!inner(*)')
 
-  if(data)
-    console.log(Object.values(data))
   return (
     <div>
         <div className="space-y-4">
             {data?.map((data, index) => 
                 <div key={index} className="flex flex-col bg-zinc-200 hover:shadow-2xl rounded-3xl px-5 py-5 border-2 border-black border-solid shadow-md">
-                    <div className="text-center">Serviço {index + 1}</div>
-                    <div className="m-0.5">
-                        <label className="mr-2">
-                            Categoria:
-                        </label>
-                        {data.categoria}
-                    </div>
-                    <div className="m-0.5">
-                        <label className="mr-2">
-                            Data:
-                        </label>
-                        {data.date}
+                    <div className="text-center">{data.clientes?.nome + " " + data.clientes?.sobrenome +" - " + data.categoria}
+                    <br/>
+                    {data.clientes?.email + " - " + data.clientes?.telefone_1}
+                    <br/>
+                    {data.date.substring(0, 10)}
                     </div>
                     <div className="m-0.5">
                         <label className="mr-2">
@@ -43,9 +34,9 @@ export default async function FetchServicos() {
                     </div>
                     <div className="m-0.5">
                         <label className="mr-2">
-                            Nome: 
+                            Local: 
                         </label>
-                        {data.clientes?.nome}
+                        {data.rua + ", " + data.numero + ", " + data.bairro + ", " + data.cidade + ", " + data.estado}
                     </div>
                     <div className="m-0.5">
                         <label className="mr-2">
@@ -59,6 +50,8 @@ export default async function FetchServicos() {
                         </label>
                         {data.config.camera}
                     </div>
+                    
+
 
                     {/* <BotoesEditarExcluirServ cliente_id={data.cliente_id} /> */}
                 </div>
