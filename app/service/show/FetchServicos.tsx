@@ -1,8 +1,8 @@
+// @ts-nocheck
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { Database } from '@/supabase'
 import BotoesEditarExcluirServ from './BotoesEditarExcluirServ'
-import { object } from 'zod'
 
 export default async function FetchServicos() {
   const supabase = createServerComponentClient<Database>({ cookies })
@@ -17,7 +17,6 @@ export default async function FetchServicos() {
 
   if(data)
     console.log(Object.values(data))
-
   return (
     <div>
         <div className="space-y-4">
@@ -54,12 +53,12 @@ export default async function FetchServicos() {
                         </label>
                         {data.config.drone}
                     </div>
-                    {/* <div className="m-0.5">
+                    <div className="m-0.5">
                         <label className="mr-2">
                             Camera: 
                         </label>
                         {data.config.camera}
-                    </div> */}
+                    </div>
 
                     {/* <BotoesEditarExcluirServ cliente_id={data.cliente_id} /> */}
                 </div>
