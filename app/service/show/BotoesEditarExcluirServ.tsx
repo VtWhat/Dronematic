@@ -6,13 +6,13 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
-export default function EditAndDeleteButton(data: { cliente_id: any }) {
+export default function EditAndDeleteButton(data: { servico_id: any }) {
     const supabase = createClientComponentClient<Database>()
     const router = useRouter()
 
     const handleDelete = async (id: any) => {
-        const res = await supabase.from("clientes").delete().eq("cliente_id", id)
-        toast.success("Cliente excluido!")
+        const res = await supabase.from("servicos").delete().eq("servico_id", id)
+        toast.success("Serviço excluido!")
         router.refresh()
       }
 
@@ -20,7 +20,7 @@ export default function EditAndDeleteButton(data: { cliente_id: any }) {
         <div className="space-y-2 space-x-2 text-right">
             <Link
                 href={{
-                    pathname: '/customer/update',
+                    pathname: '/service/update',
                     query: data
                 }}
                 >
@@ -35,11 +35,11 @@ export default function EditAndDeleteButton(data: { cliente_id: any }) {
             className="bg-black hover:bg-green-900 text-white rounded-full w-24"
             onClick={() => {toast((t) => (
                 <div className="flex flex-col gap-3">
-                  <p>Você tem certeza que deseja excluir esse cliente?</p>
+                  <p>Você tem certeza que deseja excluir esse serviço?</p>
                     <div className="text-center space-x-1">
                         <button 
                             className="bg-red-700 hover:bg-red-900 text-white rounded-full w-24" 
-                            onClick={() => {handleDelete(data.cliente_id),toast.dismiss(t.id="1"), toast.dismiss(t.id="2")}}>
+                            onClick={() => {handleDelete(data.servico_id),toast.dismiss(t.id="1"), toast.dismiss(t.id="2")}}>
                             Excluir
                         </button>
                         <button 
@@ -50,7 +50,7 @@ export default function EditAndDeleteButton(data: { cliente_id: any }) {
                     </div>
                 </div>
               ), {id:"1",duration: 12000, icon:'⚠'}),
-              toast("Todos os serviços cadastrados para esse cliente também serão excluidos.", {id:"2", duration: 12000, icon:"⚠"})}}
+              toast("As configurações para esse serviço também serão excluidas!", {id:"2", duration: 12000, icon:"⚠"})}}
                 >Excluir
             </button>
         </div>

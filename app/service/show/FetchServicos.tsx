@@ -53,7 +53,7 @@ export default async function FetchServicos() {
                     
 
 
-                    {/* <BotoesEditarExcluirServ cliente_id={data.cliente_id} /> */}
+                    <BotoesEditarExcluirServ servico_id={data.servico_id} />
                 </div>
             )}
             {data?.length == 0 ? 
