@@ -5,6 +5,8 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 import { useRouter, useSearchParams } from 'next/navigation'
 import { z } from "zod";
 import toast from 'react-hot-toast'
+import ReactCalendar from 'react-calendar'
+import "components/styles/Calendar.css"
 
 export default function CadastrarServicoForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -30,7 +32,7 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   const [cep, setCep] = useState<string>("")
 
   //dia do voo
-  const [diavoo, setDiavoo] = useState<string>("")
+  const [diavoo, setDiavoo] = useState<Date>(new Date(2020,10,10))
 
   //config
   const [drone, setDrone] = useState<string>("")
@@ -48,6 +50,9 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
 
   const user = session?.user
   const router = useRouter()
+
+  const zodMinDate = new Date()
+  zodMinDate.setDate(zodMinDate.getDate() - 1)
 
   const ServicoSchema = z.object({
     Cidade: 
@@ -73,7 +78,7 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
       z.string().
       length(8, "Deve ser composto por 8 dígitos"),
     Descrição: z.string({required_error: "Forneça uma descrição"}),
-    //Data: z.string({required_error: "Defina uma data para o serviço"}).datetime("Data inválida"),
+    Data: z.date().min(zodMinDate, {message: "Selecione uma Data"}),
     Drone: z.string().min(1, "Selecione o Drone"),
     Camera: z.string().min(1, "Selecione a Câmera")
     })
@@ -122,6 +127,8 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
       Camera: cam
     }
 
+    console.log(servData)
+
     const result = ServicoSchema.safeParse(servData)
     if(!result.success){
 
@@ -142,7 +149,7 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
           bairro: bairro,
           cep: cep,
           cidade: cidade,
-          date: diavoo,
+          date: diavoo.toISOString(),
           description: description,
           estado: estado,
           numero: numero,
@@ -317,16 +324,14 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
       </div>
     </div>
 
-    <div className="flex flex-col">Data
-      <label htmlFor="diavoo">Dia do Voo</label>
-      <div>
-        <input
-        type="date"
-        id="diavoo"
-        name="diavoo"
-        value= {diavoo}
-        onChange={(e) => setDiavoo(e.target.value)}/>
-      </div>
+    <div className="flex flex-col items-center justify-center">Data
+      <ReactCalendar
+        minDate={new Date()}
+        className='REACT-CALENDAR p-2'
+        view='month'
+        defaultValue={new Date(2017, 0, 1)}
+        onClickDay={(date) => setDiavoo(date)}
+       />
     </div>
 
     <div>Especificações
