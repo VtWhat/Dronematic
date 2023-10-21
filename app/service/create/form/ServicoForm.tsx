@@ -3,7 +3,7 @@ import { SetStateAction, useCallback, useEffect, useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { date, z } from "zod";
+import { z } from "zod";
 import toast from 'react-hot-toast'
 
 export default function CadastrarServicoForm({ session }: { session: Session | null }) {
@@ -50,7 +50,32 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   const router = useRouter()
 
   const ServicoSchema = z.object({
-
+    Cidade: 
+      z.string().
+      min(3, "Mínimo 3 caractéres").
+      max(60, "Máximo 60 caractéres"),
+    Estado: 
+      z.string().
+      length(2, "Insira somente a sigla do estado"),
+    Bairro:
+      z.string().
+      min(2, "Mínimo 2 caractéres").
+      max(60, "Máximo 60 caractéres"),
+    Rua: 
+      z.string().
+      min(2, "Mínimo 2 caractéres").
+      max(60, "Máximo 60 caractéres"),
+    Numero: 
+      z.string().
+      min(1, "Mínimo 1 dígito").
+      max(10, "Máximo 10 dígitos"),
+    Cep: 
+      z.string().
+      length(8, "Deve ser composto por 8 dígitos"),
+    Descrição: z.string({required_error: "Forneça uma descrição"}),
+    //Data: z.string({required_error: "Defina uma data para o serviço"}).datetime("Data inválida"),
+    Drone: z.string().min(1, "Selecione o Drone"),
+    Camera: z.string().min(1, "Selecione a Câmera")
     })
 
     const getCliente = useCallback(async () => {
@@ -84,13 +109,20 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
 
   async function cadastrarServico() {
 
-    const clienteData = {
-      Nome: nome,
-      Sobrenome: sobrenome,
-      Email: email,
+    const servData = {
+      Cidade: cidade,
+      Estado: estado,
+      Bairro: bairro,
+      Rua: rua,
+      Numero: numero,
+      Cep: cep,
+      Descrição: description,
+      Data: diavoo,
+      Drone: drone,
+      Camera: cam
     }
 
-    const result = ServicoSchema.safeParse(clienteData)
+    const result = ServicoSchema.safeParse(servData)
     if(!result.success){
 
       result.error.issues.forEach((issue) => {
@@ -289,7 +321,7 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
       <label htmlFor="diavoo">Dia do Voo</label>
       <div>
         <input
-        type="datetime-local"
+        type="date"
         id="diavoo"
         name="diavoo"
         value= {diavoo}
