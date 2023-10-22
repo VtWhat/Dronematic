@@ -1,18 +1,20 @@
+// @ts-nocheck
 'use client'
-import { SetStateAction, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { z } from "zod";
+import { z } from 'zod'
 import toast from 'react-hot-toast'
 import ReactCalendar from 'react-calendar'
 import "components/styles/Calendar.css"
 
-export default function CadastrarServicoForm({ session }: { session: Session | null }) {
+export default function UpdateServiceForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
 
-  const clienteID = Number(useSearchParams().get('cliente_id'))
-  const categoria = String(useSearchParams().get('cat'))
+  const user = session?.user
+  const router = useRouter()
+  const serviceID = Number(useSearchParams().get('servico_id'))
 
   //cliente
   const [nome, setNome] = useState<string>("")
@@ -48,9 +50,6 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   const [shutter, setShutter] = useState<string>("")
   const [wb, setWb] = useState<string>("")
 
-  const user = session?.user
-  const router = useRouter()
-
   const zodMinDate = new Date()
   zodMinDate.setDate(zodMinDate.getDate() - 1)
 
@@ -83,49 +82,76 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
     Camera: z.string().min(1, "Selecione a Câmera")
     })
 
-    const getCliente = useCallback(async () => {
-        toast.loading("Carregando dados", {id:"upCliToast"})
-        try {
-          let { data, error, status } = await supabase
-            .from("clientes")
-            .select("nome, sobrenome, email")
-            .eq('cliente_id', clienteID)
-            .single()
-    
-          if (error && status !== 406) {
-            throw error
-          }
-    
-          if (data) {
-            setNome(data.nome)
-            setSobrenome(data.sobrenome)
-            setEmail(data.email)          
-            {toast.success("Dados carregados!", {id:"upCliToast"})}
-          }
-        } catch (error) {
-          toast.error('Error ao carregar dados do cliente!')
-        } finally {
-        }
-      }, [user, supabase])
+  const getService = useCallback(async () => {
+    try {
+      let { data, error, status } = await supabase
+        .from("servicos")
+        .select("*,clientes(nome,sobrenome,email),config(*)")
+        .eq('servico_id', serviceID)
+        .single()
 
-      useEffect(() => {
-        getCliente()
-      }, [user, getCliente])
+    console.log(data)
 
-  async function cadastrarServico() {
+      if (error && status !== 406) {
+        throw error
+      }
 
-    const servData = {
-      Cidade: cidade,
-      Estado: estado,
-      Bairro: bairro,
-      Rua: rua,
-      Numero: numero,
-      Cep: cep,
-      Descrição: description,
-      Data: diavoo,
-      Drone: drone,
-      Camera: cam
+      if (data) {
+        //cliente
+        setNome(data.clientes.nome)
+        setSobrenome(data.clientes.sobrenome)
+        setEmail(data.clientes.email)
+
+        //serviço
+        setDescription(data.description)
+        setRoute(data.route)
+        setCidade(data.cidade)
+        setEstado(data.estado)
+        setBairro(data.bairro)
+        setRua(data.rua)
+        setNumero(data.numero)
+        setCep(data.cep)
+        setDiavoo(new Date(data.date)) 
+
+        //config
+        setDrone(data.config.drone)
+        setCam(data.config.camera)
+        setFiltro(data.config.filter)
+        setAspect(data.config.aspect_ratio)
+        setVideoq(data.config.video_quality)
+        setFov(data.config.fov)
+        setEis(data.config.eis)
+        setColor(data.config.color_mode)
+        setIso(data.config.iso)
+        setIsol(data.config.auto_iso_limit)
+        setShutter(data.config.shutter)
+        setWb(data.config.wb)
+        
+        {toast.success("Dados carregados!", {id:"upCliToast"})}
+      }
+    } catch (error) {
+      toast.error('Error ao carregar dados do serviço!')
+    } finally {
     }
+  }, [user, supabase])
+
+  useEffect(() => {
+    getService()
+  }, [user, getService])
+
+  async function updateServico() {
+    const servData = {
+        Cidade: cidade,
+        Estado: estado,
+        Bairro: bairro,
+        Rua: rua,
+        Numero: numero,
+        Cep: cep,
+        Descrição: description,
+        Data: diavoo,
+        Drone: drone,
+        Camera: cam
+      }
 
     const result = ServicoSchema.safeParse(servData)
     if(!result.success){
@@ -137,57 +163,52 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
         toast.error(errorMessage)
       })
 
-
     }else{
       try {
-        const { data, error } = await supabase.from('servicos').insert({
-          cliente_id: clienteID,
-          categoria: categoria,
-          user_id: user?.id as string,
-          bairro: bairro,
-          cep: cep,
-          cidade: cidade,
-          date: diavoo.toISOString(),
-          description: description,
-          estado: estado,
-          numero: numero,
-          route: route,
-          rua: rua,
-        }).select().single()
 
-      if ( !error ) {
-        await supabase.from('config').insert({
-          servico_id: data.servico_id,
-          user_id: user?.id as string,
-          drone: drone,
-          camera: cam,
-          filter: filtro,
-          aspect_ratio: aspect,
-          video_quality: videoq,
-          fov: fov,
-          eis: eis,
-          color_mode: color,
-          iso: iso,
-          auto_iso_limit: isol,
-          shutter: shutter,
-          wb: wb,
-        })
-      }
+        const { data, error } = await supabase.from('servicos').update({
+            bairro: bairro,
+            cep: cep,
+            cidade: cidade,
+            date: diavoo.toISOString(),
+            description: description,
+            estado: estado,
+            numero: numero,
+            route: route,
+            rua: rua,
+          }).eq("servico_id", serviceID).select().single()
+  
+        if ( !error ) {
+          await supabase.from('config').update({
+            drone: drone,
+            camera: cam,
+            filter: filtro,
+            aspect_ratio: aspect,
+            video_quality: videoq,
+            fov: fov,
+            eis: eis,
+            color_mode: color,
+            iso: iso,
+            auto_iso_limit: isol,
+            shutter: shutter,
+            wb: wb,
+          }).eq("servico_id",serviceID)
+        }
 
         if (error) throw error
 
-        toast.success('Serviço cadastrado!')
         router.prefetch("/service/show")
-        router.push("/home")
+        toast.success('Dados do Serviço atualizados!')
+        router.push("/service/show")
 
       } catch (error) {
-        toast.error('Erro ao cadastrar serviço!')
-        console.log(error)
+        toast.error('Erro ao atualizar dados do serviço!')
       }
     }
   }
 
   return (
+
     <div className="form-widget flex flex-col gap-3">
     <div>Informações do Cliente
       <div className="flex flex-col">
@@ -323,11 +344,14 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
     </div>
 
     <div className="flex flex-col items-center justify-center">Data
+    <label>Selecionado:</label>
+    {diavoo.toDateString()}
       <ReactCalendar
         minDate={new Date()}
         className='REACT-CALENDAR p-2'
         view='month'
         defaultValue={new Date(2017, 0, 1)}
+        value={diavoo}
         onClickDay={(date) => setDiavoo(date)}
        />
     </div>
@@ -577,9 +601,9 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
 
         <button
             className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            onClick={() => cadastrarServico()}
+            onClick={() => updateServico()}
         >
-          Cadastrar
+          Salvar
         </button>
     </div>
   )

@@ -3,9 +3,9 @@ import { cookies } from 'next/headers'
 import BackButton from '@/components/BackButton'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
-import UpdateClienteForm from './UpdateClienteForm'
+import UpdateServiceForm from './UpdateServiceForm'
 
-export default async function UpdateCustomer() {
+export default async function UpdateService() {
   const supabase = createServerComponentClient<Database>({ cookies })
 
   const {
@@ -15,11 +15,11 @@ export default async function UpdateCustomer() {
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar email={session?.user.email}/>
-        Formulário de atualização de clientes
+        Formulário de atualização de serviços
 
         <BackButton />
 
-        <UpdateClienteForm  session={session}/>
+        <UpdateServiceForm  session={session}/>
       
     </div>
   )
