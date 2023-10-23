@@ -376,7 +376,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setDrone(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="DJI Avata">DJI Avata</option>
         <option value="DJI FPV">DJI FPV</option>
         <option value="DJI Mavic Mini">DJI Mavic Mini</option>
@@ -399,7 +399,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setCam(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="Câmera do Drone">Câmera do Drone</option>
         <option value="GoPro 12">GoPro 12</option>
         <option value="GoPro 11">GoPro 11</option>
@@ -421,7 +421,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setFiltro(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="ND2">ND2</option>
         <option value="ND4">ND4</option>
         <option value="ND8">ND8</option>
@@ -442,7 +442,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setAspect(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="4:3">4:3</option>
         <option value="3:2">3:2</option>
         <option value="16:9">16:9</option>
@@ -458,7 +458,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setVideoq(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="4K@60fps">4K@60fps</option>
         <option value="4K@50fps">4K@50fps</option>
         <option value="4K@30fps">4K@30fps</option>
@@ -483,7 +483,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setFov(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="Normal">Normal</option>
         <option value="Wide">Wide</option>
         <option value="Ultra Wide">Ultra Wide</option>
@@ -498,7 +498,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setEis(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="RockSteady">RockSteady</option>
         <option value="HorizonSteady">HorizonSteady</option>
         <option value="Gyroflow">Gyroflow</option>
@@ -514,7 +514,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setColor(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="Standard">Standard</option>
         <option value="D-Cinelike">D-Cinelike</option>
       </select>
@@ -528,7 +528,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setIso(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="100">100</option>
         <option value="200">200</option>
         <option value="400">400</option>
@@ -550,7 +550,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setIsol(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="100">100</option>
         <option value="200">200</option>
         <option value="400">400</option>
@@ -569,7 +569,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setShutter(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="1/60">1/60</option>
         <option value="1/80">1/80</option>
         <option value="1/100">1/100</option>
@@ -592,7 +592,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         className="bg-zinc-200 rounded-md px-2"
         onChange={(e) => setWb(e.target.value)}
       >
-        <option value="NA" selected hidden>Selecione uma opção</option>
+        <option value="NA" hidden>Selecione uma opção</option>
         <option value="6000K">6000K</option>
         <option value="5900K">5900K</option>
         <option value="5800K">5800K</option>

@@ -7,7 +7,7 @@ import { z } from "zod";
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 
-export default function SelectCustomer() {
+export default function SelectCat() {
   const supabase = createClientComponentClient<Database>()
 
   const clienteID = Number(useSearchParams().get('cliente_id'))
@@ -16,8 +16,9 @@ export default function SelectCustomer() {
 
   return (
     <div className='w-full flex flex-col items-center gap-2'>
-        {categorias?.map((cat) => 
+        {categorias?.map((cat, index) => 
         <Link
+        key={index}
         href={{
             pathname: '/service/create/form',
             query: "cliente_id="+clienteID.toString()+"&cat="+cat
