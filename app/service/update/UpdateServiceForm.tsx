@@ -353,6 +353,16 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         defaultValue={new Date(2017, 0, 1)}
         value={diavoo}
         onClickDay={(date) => setDiavoo(date)}
+        tileClassName={({ date, view }) => {
+            if (
+                view === 'month' &&
+                date.getDate() === diavoo.getDate() &&
+                date.getMonth() === diavoo.getMonth() &&
+                date.getFullYear() === diavoo.getFullYear()
+              ) {
+                return 'highlight';
+              }
+          }}
        />
     </div>
 
