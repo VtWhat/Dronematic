@@ -123,9 +123,9 @@ export default function EditAndDeleteButton(data: { servico_id: any }) {
 
     getData(data.servico_id)
 
-    const props = {
+    const pdfObject = {
         outputType: "dataurlnewwindow",
-        returnJsPDFDocObject: true,
+        returnJsPDFDocObject: false,
         fileName: nome + "-" + sobrenome + "(" + new Date().toDateString() + ")",
         orientationLandscape: false,
         compress: true,
@@ -222,7 +222,7 @@ export default function EditAndDeleteButton(data: { servico_id: any }) {
         <div className="space-y-2 space-x-2 text-right">
             <button 
                 className="bg-black hover:bg-green-900 text-white rounded-full w-32"
-                onClick={() => {jsPDFInvoiceTemplate(props)}}
+                onClick={() => {jsPDFInvoiceTemplate(pdfObject)}}
                 >Gerar PDF
             </button>
 
