@@ -2,7 +2,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { Database } from '@/supabase'
-import BotoesEditarExcluirServ from './BotoesEditarExcluirServ'
+import Botoes from './Botoes'
 
 export default async function FetchServicos() {
   const supabase = createServerComponentClient<Database>({ cookies })
@@ -53,7 +53,7 @@ export default async function FetchServicos() {
                     
 
 
-                    <BotoesEditarExcluirServ servico_id={data.servico_id} />
+                    <Botoes servico_id={data.servico_id} />
                 </div>
             )}
             {data?.length == 0 ? 
