@@ -13,7 +13,7 @@ export default async function FetchServicos() {
 
   const {
     data 
-  } = await supabase.from('servicos').select('*, config!inner(*), clientes!inner(*)')
+  } = await supabase.from('servicos').select('*, config(*), clientes(*)')
 
   return (
     <div>
