@@ -50,10 +50,8 @@ export default async function FetchServicos() {
                         </label>
                         {data.config.camera}
                     </div>
-                    
 
-
-                    <Botoes servico_id={data.servico_id} />
+                    <Botoes servico_id={data.servico_id} u_email={session?.user.email} />
                 </div>
             )}
             {data?.length == 0 ? 

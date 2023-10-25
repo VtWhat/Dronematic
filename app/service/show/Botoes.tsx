@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import jsPDFInvoiceTemplate from "app/service/show/jsPDFInvoiceTemplate.js"
 
-export default function Botoes(data: { servico_id: any }) {
+export default function Botoes(data: { servico_id: any, u_email: string}) {
     const supabase = createClientComponentClient<Database>()
     const router = useRouter()
 
@@ -75,8 +75,16 @@ export default function Botoes(data: { servico_id: any }) {
     const [shutter, setShutter] = useState<string>("")
     const [wb, setWb] = useState<string>("")
 
+    //user
+    const [user_name, setUser_name] = useState<string>("")
+    const [user_address, setUser_address] = useState<string>("")
+    const [user_cell, setUser_cell] = useState<string>("")
+    const [user_website, setUser_website] = useState<string | null>("")
+    const [user_email, setUser_email] = useState<string>(data.u_email)
+
     const genPDF = async (id: any) => {
         const { data } = await supabase.from("servicos").select("*,clientes(*),config(*)").eq("servico_id", id).single()
+        const { data: user_data } = await supabase.from("userprofile").select("*").single()
 
         if ( data ){           
             //cliente
@@ -117,102 +125,110 @@ export default function Botoes(data: { servico_id: any }) {
             setShutter(data.config.shutter)
             setWb(data.config.wb)
 
-            const pdfObject = {
-                outputType: "dataurlnewwindow",
-                returnJsPDFDocObject: false,
-                fileName: nome + "-" + sobrenome + "(" + new Date().toDateString() + ")",
-                orientationLandscape: false,
-                compress: true,
-                logo: {
-                    src: "/dronematic-logo.png",
-                    type: 'PNG', //optional, when src= data:uri (nodejs case)
-                    width: 70, //aspect ratio = width/height
-                    height: 26.66,
-                    margin: {
-                        top: 0, //negative or positive num, from the current position
-                        left: 0 //negative or positive num, from the current position
-                    }
-                },
-                stamp: {
-                    inAllPages: true, //by default = false, just in the last page
-                    src: "/qrcode.png",
-                    type: 'PŃG', //optional, when src= data:uri (nodejs case)
-                    width: 20, //aspect ratio = width/height
-                    height: 20,
-                    margin: {
-                        top: 0, //negative or positive num, from the current position
-                        left: 0 //negative or positive num, from the current position
-                    }
-                },
-                business: {
-                    name: "Nome do Piloto",
-                    address: "Endereço",
-                    phone: "(55) Telefone",
-                    email: "email@exemplo.com",
-                    website: "https://dronematic.vercel.app/",
-                },
-                contact: {
-                    label: "Ordem de serviço emitida para:",
-                    name: nome + " " + sobrenome,
-                    address: ruacli + ", " + numerocli + ", " + bairrocli + ", " + cidadecli + ", " + estadocli + ", " + cepcli,
-                    phone: telefone,
-                    email: email,
-                    otherInfo: "",
-                },
-                invoice: {
-                    label: "Serviço#",
-                    num:data.servico_id,
-                    invDate: 'Agendado: ' + diavoo.toDateString(),
-                    invGenDate: "Emitido: " + new Date().toDateString(),
-                    headerBorder: false,
-                    tableBodyBorder: false,
-                    header: [
-                    {
-                        title: "", 
-                        style: { 
-                        width: 30
-                        } 
-                    }, 
-                    { 
-                        title: "",
-                        style: {
-                        width: 160
-                        } 
-                    }
-                    ],
-                    table: Array.from(Array(
-                        ["Categoria",cat],
-                        ["Descrição",description],
-                        ["Rota",route],
-                        ["Local de voo",rua + ", " + numero + ", " + bairro + ", " + cidade + ", " + estado + ", " + cep],
-                        ["Data de voo",diavoo.toDateString()],
-                        ["Drone",drone],
-                        ["Câmera",cam],
-                        ["Filtro",filtro],
-                        ["Aspect Ratio", aspect],
-                        ["Qualidade", videoq],
-                        ["FOV", fov],
-                        ["EIS", eis],
-                        ["Color Mode", color],
-                        ["ISO", iso],
-                        ["Auto ISO Limit", isol],
-                        ["Shutter Speed", shutter],
-                        ["White Balance", wb]
-                        ), (item, index)=>([
-                        item[0],
-                        item[1],
-                    ])),
-                    invDescLabel: "Nota",
-                    invDesc: "Este documento foi emitido por Dronematic, uma plataforma de assistencia a serviços de drone ainda em desenvolvimento",
-                },
-                footer: {
-                    text: "Ordem de Serviço emitida por Dronematic.",
-                },
-                pageEnable: true,
-                pageLabel: "Página ",
-            };
+            //user
+            setUser_name(user_data?.nome)
+            setUser_address(user_data?.endereco)
+            setUser_cell(user_data?.telefone)
+            setUser_website(user_data?.website)
 
-            jsPDFInvoiceTemplate(pdfObject)
+            setTimeout(() => {
+                const pdfObject = {
+                    outputType: "dataurlnewwindow",
+                    returnJsPDFDocObject: false,
+                    fileName: nome + "-" + sobrenome + "(" + new Date().toDateString() + ")",
+                    orientationLandscape: false,
+                    compress: true,
+                    logo: {
+                        src: "/dronematic-logo.png",
+                        type: 'PNG', //optional, when src= data:uri (nodejs case)
+                        width: 70, //aspect ratio = width/height
+                        height: 26.66,
+                        margin: {
+                            top: 0, //negative or positive num, from the current position
+                            left: 0 //negative or positive num, from the current position
+                        }
+                    },
+                    stamp: {
+                        inAllPages: true, //by default = false, just in the last page
+                        src: "/qrcode.png",
+                        type: 'PŃG', //optional, when src= data:uri (nodejs case)
+                        width: 20, //aspect ratio = width/height
+                        height: 20,
+                        margin: {
+                            top: 0, //negative or positive num, from the current position
+                            left: 0 //negative or positive num, from the current position
+                        }
+                    },
+                    business: {
+                        name: user_name,
+                        address: user_address,
+                        phone: user_cell,
+                        email: user_email,
+                        website: user_website,
+                    },
+                    contact: {
+                        label: "Ordem de serviço emitida para:",
+                        name: nome + " " + sobrenome,
+                        address: ruacli + ", " + numerocli + ", " + bairrocli + ", " + cidadecli + ", " + estadocli + ", " + cepcli,
+                        phone: telefone,
+                        email: email,
+                        otherInfo: "",
+                    },
+                    invoice: {
+                        label: "Serviço#",
+                        num:data.servico_id,
+                        invDate: 'Agendado: ' + diavoo.toDateString(),
+                        invGenDate: "Emitido: " + new Date().toDateString(),
+                        headerBorder: false,
+                        tableBodyBorder: false,
+                        header: [
+                        {
+                            title: "", 
+                            style: { 
+                            width: 30
+                            } 
+                        }, 
+                        { 
+                            title: "",
+                            style: {
+                            width: 160
+                            } 
+                        }
+                        ],
+                        table: Array.from(Array(
+                            ["Categoria",cat],
+                            ["Descrição",description],
+                            ["Rota",route],
+                            ["Local de voo",rua + ", " + numero + ", " + bairro + ", " + cidade + ", " + estado + ", " + cep],
+                            ["Data de voo",diavoo.toDateString()],
+                            ["Drone",drone],
+                            ["Câmera",cam],
+                            ["Filtro",filtro],
+                            ["Aspect Ratio", aspect],
+                            ["Qualidade", videoq],
+                            ["FOV", fov],
+                            ["EIS", eis],
+                            ["Color Mode", color],
+                            ["ISO", iso],
+                            ["Auto ISO Limit", isol],
+                            ["Shutter Speed", shutter],
+                            ["White Balance", wb]
+                            ), (item, index)=>([
+                            item[0],
+                            item[1],
+                        ])),
+                        invDescLabel: "Nota",
+                        invDesc: "Este documento foi emitido por Dronematic, uma plataforma de assistencia a serviços de drone ainda em desenvolvimento",
+                    },
+                    footer: {
+                        text: "Ordem de Serviço emitida por Dronematic.",
+                    },
+                    pageEnable: true,
+                    pageLabel: "Página ",
+                };
+
+                jsPDFInvoiceTemplate(pdfObject)
+            }, 0);
         }
       }
 
@@ -239,7 +255,7 @@ export default function Botoes(data: { servico_id: any }) {
             <Link
                 href={{
                     pathname: '/service/update',
-                    query: data
+                    query: "servico_id="+data.servico_id
                 }}
                 >
                 <button 
