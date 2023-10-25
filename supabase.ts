@@ -212,6 +212,7 @@ export interface Database {
           nome: string
           telefone: string
           user_id: string
+          website: string | null
         }
         Insert: {
           endereco: string
@@ -220,6 +221,7 @@ export interface Database {
           nome: string
           telefone: string
           user_id: string
+          website?: string | null
         }
         Update: {
           endereco?: string
@@ -228,6 +230,7 @@ export interface Database {
           nome?: string
           telefone?: string
           user_id?: string
+          website?: string | null
         }
         Relationships: [
           {

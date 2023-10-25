@@ -40,6 +40,13 @@ export default async function Home() {
         >
           Ver Serviços
         </Link>
+
+        <Link
+          href="/user/update"
+          className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
+        >
+          Editar Perfil
+        </Link>
       
     </div>
   )
