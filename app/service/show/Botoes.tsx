@@ -50,7 +50,6 @@ export default function Botoes(data: { servico_id: any }) {
     const [route, setRoute] = useState<string>("")
     const [cat, setCat] = useState<string>("")
 
-
     //local de voo
     const [cidade, setCidade] = useState<string>("")
     const [estado, setEstado] = useState<string>("")

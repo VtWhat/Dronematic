@@ -7,9 +7,12 @@ export async function POST(request: Request) {
   const formData = await request.formData()
   const email = String(formData.get('email'))
   const password = String(formData.get('password'))
+  const nomec = String(formData.get('nome'))
+  const endereco = String(formData.get('end'))
+  const telefone = String(formData.get('tel'))
   const supabase = createRouteHandlerClient({ cookies })
 
-  const { error } = await supabase.auth.signUp({
+  const { data: signupRes, error: signupErr } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -17,7 +20,16 @@ export async function POST(request: Request) {
     },
   })
 
-  if (error) {
+  if(!signupErr){
+    const { data: userpData, error: userpErr} = await supabase.from('userprofile').insert({
+      nome: nomec,
+      endereco: endereco,
+      telefone: telefone,
+      user_id: signupRes.session?.user.id as string,
+    })
+  }
+
+  if (signupErr) {
     return NextResponse.redirect(
       `${requestUrl.origin}/login?error=Não foi possível realizar o cadastro.`,
       {
@@ -26,7 +38,7 @@ export async function POST(request: Request) {
       }
     )
   }
-
+      
   return NextResponse.redirect(
     `${requestUrl.origin}/login?message=Usuário cadastrado.`,
     {

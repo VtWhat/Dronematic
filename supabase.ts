@@ -204,6 +204,40 @@ export interface Database {
           }
         ]
       }
+      userprofile: {
+        Row: {
+          endereco: string
+          id: number
+          inserted_at: string
+          nome: string
+          telefone: string
+          user_id: string
+        }
+        Insert: {
+          endereco: string
+          id?: number
+          inserted_at?: string
+          nome: string
+          telefone: string
+          user_id: string
+        }
+        Update: {
+          endereco?: string
+          id?: number
+          inserted_at?: string
+          nome?: string
+          telefone?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "userprofile_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
