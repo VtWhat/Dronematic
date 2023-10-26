@@ -2,6 +2,8 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
+import { useEffect } from 'react'
+import HomeForecast from '@/components/Forecast/HomeForecast'
 
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies })
@@ -47,6 +49,8 @@ export default async function Home() {
         >
           Editar Perfil
         </Link>
+
+        <HomeForecast />
       
     </div>
   )

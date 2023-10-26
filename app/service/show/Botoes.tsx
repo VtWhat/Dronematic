@@ -1,5 +1,5 @@
 // @ts-nocheck
-"use client"
+'use client'
 
 import { Database } from "@/supabase"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
