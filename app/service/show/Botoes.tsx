@@ -37,53 +37,53 @@ export default function Botoes(data: { servico_id: any, u_email: string}) {
       }
 
     //cliente
-    const [nome, setNome, nomeref] = useState<string>("")
-    const [sobrenome, setSobrenome, sobrenomeref] = useState<string>("")
-    const [email, setEmail, emailref] = useState<string>("")
-    const [telefone, setTelefone, telefoneref] = useState<string>("")
-    const [cidadecli, setCidadecli, cidadecliref] = useState<string>("")
-    const [estadocli, setEstadocli, estadocliref] = useState<string>("")
-    const [bairrocli, setBairrocli, bairrocliref] = useState<string>("")
-    const [ruacli, setRuacli, ruacliref] = useState<string>("")
-    const [numerocli, setNumerocli, numerocliref] = useState<string>("")
-    const [cepcli, setCepcli, cepcliref] = useState<string>("")
+    const [nome, setNome, nomeRef] = useState<string>("")
+    const [sobrenome, setSobrenome, sobrenomeRef] = useState<string>("")
+    const [email, setEmail, emailRef] = useState<string>("")
+    const [telefone, setTelefone, telefoneRef] = useState<string>("")
+    const [cidadecli, setCidadecli, cidadecliRef] = useState<string>("")
+    const [estadocli, setEstadocli, estadocliRef] = useState<string>("")
+    const [bairrocli, setBairrocli, bairrocliRef] = useState<string>("")
+    const [ruacli, setRuacli, ruacliRef] = useState<string>("")
+    const [numerocli, setNumerocli, numerocliRef] = useState<string>("")
+    const [cepcli, setCepcli, cepcliRef] = useState<string>("")
 
     // serviço
-    const [description, setDescription, descriptionref] = useState<string>("")
-    const [route, setRoute, routeref] = useState<string>("")
-    const [cat, setCat, catref] = useState<string>("")
+    const [description, setDescription, descriptionRef] = useState<string>("")
+    const [route, setRoute, routeRef] = useState<string>("")
+    const [cat, setCat, catRef] = useState<string>("")
 
     //local de voo
-    const [cidade, setCidade, cidaderef] = useState<string>("")
-    const [estado, setEstado, estadoref] = useState<string>("")
-    const [bairro, setBairro, bairroref] = useState<string>("")
-    const [rua, setRua, ruaref] = useState<string>("")
-    const [numero, setNumero, numeroref] = useState<string>("")
-    const [cep, setCep, cepref] = useState<string>("")
+    const [cidade, setCidade, cidadeRef] = useState<string>("")
+    const [estado, setEstado, estadoRef] = useState<string>("")
+    const [bairro, setBairro, bairroRef] = useState<string>("")
+    const [rua, setRua, ruaRef] = useState<string>("")
+    const [numero, setNumero, numeroRef] = useState<string>("")
+    const [cep, setCep, cepRef] = useState<string>("")
 
     //dia do voo
-    const [diavoo, setDiavoo, diavooref] = useState<Date>(new Date(2020,10,10))
+    const [diavoo, setDiavoo, diavooRef] = useState<Date>(new Date(2020,10,10))
 
     //config
-    const [drone, setDrone, droneref] = useState<string>("")
-    const [cam, setCam, camref] = useState<string>("")
-    const [filtro, setFiltro, filtroref] = useState<string>("")
-    const [aspect, setAspect, aspectref] = useState<string>("")
-    const [videoq, setVideoq, videoqref] = useState<string>("")
-    const [fov, setFov, fovref] = useState<string>("")
-    const [eis, setEis, eisref] = useState<string>("")
-    const [color, setColor, colorref] = useState<string>("")
-    const [iso, setIso, isoref] = useState<string>("")
-    const [isol, setIsol, isolref] = useState<string>("")
-    const [shutter, setShutter, shutterref] = useState<string>("")
-    const [wb, setWb, wbref] = useState<string>("")
+    const [drone, setDrone, droneRef] = useState<string>("")
+    const [cam, setCam, camRef] = useState<string>("")
+    const [filtro, setFiltro, filtroRef] = useState<string>("")
+    const [aspect, setAspect, aspectRef] = useState<string>("")
+    const [videoq, setVideoq, videoqRef] = useState<string>("")
+    const [fov, setFov, fovRef] = useState<string>("")
+    const [eis, setEis, eisRef] = useState<string>("")
+    const [color, setColor, colorRef] = useState<string>("")
+    const [iso, setIso, isoRef] = useState<string>("")
+    const [isol, setIsol, isolRef] = useState<string>("")
+    const [shutter, setShutter, shutterRef] = useState<string>("")
+    const [wb, setWb, wbRef] = useState<string>("")
 
     //user
-    const [user_name, setUser_name, user_nameref] = useState<string>("")
-    const [user_address, setUser_address, user_addressref] = useState<string>("")
-    const [user_cell, setUser_cell, user_cellref] = useState<string>("")
-    const [user_website, setUser_website, user_websiteref] = useState<string | null>("")
-    const [user_email, setUser_email, user_emailref] = useState<string>(data.u_email)
+    const [user_name, setUser_name, user_nameRef] = useState<string>("")
+    const [user_address, setUser_address, user_addressRef] = useState<string>("")
+    const [user_cell, setUser_cell, user_cellRef] = useState<string>("")
+    const [user_website, setUser_website, user_websiteRef] = useState<string | null>("")
+    const [user_email, setUser_email, user_emailRef] = useState<string>(data.u_email)
 
     const getServiceData = useCallback(async () => {
         const { data } = await supabase.from("servicos").select("*,clientes(*),config(*)").eq("servico_id", sid).single()
@@ -144,7 +144,7 @@ export default function Botoes(data: { servico_id: any, u_email: string}) {
             const pdfObject = {
                 outputType: "dataurlnewwindow",
                 returnJsPDFDocObject: false,
-                fileName: nomeref.current + "-" + sobrenomeref.current + "(" + new Date().toDateString() + ")",
+                fileName: nomeRef.current + "-" + sobrenomeRef.current + "(" + new Date().toDateString() + ")",
                 orientationLandscape: false,
                 compress: true,
                 logo: {
@@ -169,24 +169,24 @@ export default function Botoes(data: { servico_id: any, u_email: string}) {
                     }
                 },
                 business: {
-                    name: user_nameref.current,
-                    address: user_addressref.current,
-                    phone: user_cellref.current,
-                    email: user_emailref.current,
-                    website: user_websiteref.current,
+                    name: user_nameRef.current,
+                    address: user_addressRef.current,
+                    phone: user_cellRef.current,
+                    email: user_emailRef.current,
+                    website: user_websiteRef.current,
                 },
                 contact: {
                     label: "Ordem de serviço emitida para:",
-                    name: nomeref.current + " " + sobrenomeref.current,
-                    address: ruacliref.current + ", " + numerocliref.current + ", " + bairrocliref.current + ", " + cidadecliref.current + ", " + estadocliref.current + ", " + cepcliref.current,
-                    phone: telefoneref.current,
-                    email: emailref.current,
+                    name: nomeRef.current + " " + sobrenomeRef.current,
+                    address: ruacliRef.current + ", " + numerocliRef.current + ", " + bairrocliRef.current + ", " + cidadecliRef.current + ", " + estadocliRef.current + ", " + cepcliRef.current,
+                    phone: telefoneRef.current,
+                    email: emailRef.current,
                     otherInfo: "",
                 },
                 invoice: {
                     label: "Serviço#",
                     num:data.servico_id,
-                    invDate: 'Agendado: ' + diavooref.current.toDateString(),
+                    invDate: 'Agendado: ' + diavooRef.current.toDateString(),
                     invGenDate: "Emitido: " + new Date().toDateString(),
                     headerBorder: false,
                     tableBodyBorder: false,
@@ -205,23 +205,23 @@ export default function Botoes(data: { servico_id: any, u_email: string}) {
                     }
                     ],
                     table: Array.from(Array(
-                        ["Categoria",catref.current],
-                        ["Descrição",descriptionref.current],
-                        ["Rota",routeref.current],
-                        ["Local de voo",ruaref.current + ", " + numeroref.current + ", " + bairroref.current + ", " + cidaderef.current + ", " + estadoref.current + ", " + cepref.current],
-                        ["Data de voo",diavooref.current.toDateString()],
-                        ["Drone",droneref.current],
-                        ["Câmera",camref.current],
-                        ["Filtro",filtroref.current],
-                        ["Aspect Ratio", aspectref.current],
-                        ["Qualidade", videoqref.current],
-                        ["FOV", fovref.current],
-                        ["EIS", eisref.current],
-                        ["Color Mode", colorref.current],
-                        ["ISO", isoref.current],
-                        ["Auto ISO Limit", isolref.current],
-                        ["Shutter Speed", shutterref.current],
-                        ["White Balance", wbref.current]
+                        ["Categoria",catRef.current],
+                        ["Descrição",descriptionRef.current],
+                        ["Rota",routeRef.current],
+                        ["Local de voo",ruaRef.current + ", " + numeroRef.current + ", " + bairroRef.current + ", " + cidadeRef.current + ", " + estadoRef.current + ", " + cepRef.current],
+                        ["Data de voo",diavooRef.current.toDateString()],
+                        ["Drone",droneRef.current],
+                        ["Câmera",camRef.current],
+                        ["Filtro",filtroRef.current],
+                        ["Aspect Ratio", aspectRef.current],
+                        ["Qualidade", videoqRef.current],
+                        ["FOV", fovRef.current],
+                        ["EIS", eisRef.current],
+                        ["Color Mode", colorRef.current],
+                        ["ISO", isoRef.current],
+                        ["Auto ISO Limit", isolRef.current],
+                        ["Shutter Speed", shutterRef.current],
+                        ["White Balance", wbRef.current]
                         ), (item, index)=>([
                         item[0],
                         item[1],
@@ -249,13 +249,13 @@ export default function Botoes(data: { servico_id: any, u_email: string}) {
 
             <button 
                 className="bg-black hover:bg-green-900 text-white rounded-full w-36"
-                onClick={() => {window.open("https://www.google.com/maps?q="+ruaref.current+","+numeroref.current+","+bairroref.current+","+cidaderef.current+","+estadoref.current+","+cepref.current )}}
+                onClick={() => {window.open("https://www.google.com/maps?q="+ruaRef.current+","+numeroRef.current+","+bairroRef.current+","+cidadeRef.current+","+estadoRef.current+","+cepRef.current )}}
                 >Abrir no Mapa
             </button>
 
             <button 
                 className="bg-black hover:bg-green-900 text-white rounded-full w-24"
-                onClick={() => {window.open("https://www.google.com/maps/dir/"+lat+","+long+"/"+ruaref.current+","+numeroref.current+","+bairroref.current+","+cidaderef.current+","+estadoref.current+","+cepref.current )}}
+                onClick={() => {window.open("https://www.google.com/maps/dir/"+lat+","+long+"/"+ruaRef.current+","+numeroRef.current+","+bairroRef.current+","+cidadeRef.current+","+estadoRef.current+","+cepRef.current )}}
                 >Traçar Rota
             </button>
 
