@@ -1,5 +1,6 @@
 'use client'
-import { SetStateAction, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
+import useState from 'react-usestateref'
 import { Database } from '@/supabase'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -13,6 +14,32 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
 
   const clienteID = Number(useSearchParams().get('cliente_id'))
   const categoria = String(useSearchParams().get('cat'))
+
+  //dia do voo
+  const [diavoo, setDiavoo] = useState<Date>(new Date(2020,10,10))
+
+  //Forecast
+  const [lat, setLat, latRef] = useState<number>();
+  const [long, setLong, longRef] = useState<number>();
+  const [forecastData, setForecast, forecastRef] = useState<any>();
+
+  const getForecastData = async () => {
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latRef.current}&longitude=${longRef.current}&current=temperature_2m,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,windspeed_10m_max&timezone=America%2FSao_Paulo&forecast_days=16`);
+      const Forecast = await res.json()
+      setForecast(Forecast)
+  }
+
+  useEffect(() => {
+      if('geolocation' in navigator) {
+          // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+          navigator.geolocation.getCurrentPosition(({ coords }) => {
+              const { latitude, longitude } = coords;
+              setLat(latitude);
+              setLong(longitude)
+              getForecastData()
+          })
+      }
+  }, []);
 
   //cliente
   const [nome, setNome] = useState<string>("")
@@ -30,9 +57,6 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   const [rua, setRua] = useState<string>("")
   const [numero, setNumero] = useState<string>("")
   const [cep, setCep] = useState<string>("")
-
-  //dia do voo
-  const [diavoo, setDiavoo] = useState<Date>(new Date(2020,10,10))
 
   //config
   const [drone, setDrone] = useState<string>("")
@@ -336,8 +360,50 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
               date.getMonth() === diavoo.getMonth() &&
               date.getFullYear() === diavoo.getFullYear()
             ) {
-              return 'highlight';
+              return 'highlight_selected';
             }
+
+          for(let i = 0; i < forecastData?.daily.time.length; i++){
+            if (
+              date.getUTCDate() === new Date(forecastData?.daily.time[i]).getUTCDate() &&
+              date.getUTCMonth() === new Date(forecastData?.daily.time[i]).getUTCMonth() &&
+              date.getUTCFullYear() === new Date(forecastData?.daily.time[i]).getUTCFullYear()
+          ) {
+              if(forecastData?.daily.precipitation_probability_max[i] == 0){
+                return 'forecast_0'
+              } else
+              if(forecastData?.daily.precipitation_probability_max[i] > 0 && forecastData?.daily.precipitation_probability_max[i] <= 10){
+                return 'forecast_10'
+              } else
+              if(forecastData?.daily.precipitation_probability_max[i] > 10 && forecastData?.daily.precipitation_probability_max[i] <= 20){
+                return 'forecast_20'
+              } else 
+              if(forecastData?.daily.precipitation_probability_max[i] > 20 && forecastData?.daily.precipitation_probability_max[i] <= 30){
+                return 'forecast_30'
+              } else
+              if(forecastData?.daily.precipitation_probability_max[i] > 30 && forecastData?.daily.precipitation_probability_max[i] <= 40){
+                return 'forecast_40'
+              } else 
+              if(forecastData?.daily.precipitation_probability_max[i] > 40 && forecastData?.daily.precipitation_probability_max[i] <= 50){
+                return 'forecast_50'
+              } else
+              if(forecastData?.daily.precipitation_probability_max[i] > 50 && forecastData?.daily.precipitation_probability_max[i] <= 60){
+                return 'forecast_60'
+              } else
+              if(forecastData?.daily.precipitation_probability_max[i] > 60 && forecastData?.daily.precipitation_probability_max[i] <= 70){
+                return 'forecast_70'
+              }
+              if(forecastData?.daily.precipitation_probability_max[i] > 70 && forecastData?.daily.precipitation_probability_max[i] <= 80){
+                return 'forecast_80'
+              }
+              if(forecastData?.daily.precipitation_probability_max[i] > 80 && forecastData?.daily.precipitation_probability_max[i] <= 90){
+                return 'forecast_90'
+              }
+              if(forecastData?.daily.precipitation_probability_max[i] > 90){
+                return 'forecast_100'
+              }
+          }
+          }
         }}
        />
     </div>

@@ -175,6 +175,39 @@
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: rgb(238 242 255);
   }
-  .react-calendar .highlight {
+  .react-calendar .highlight_selected {
     outline: 2px solid rgb(29, 114, 12);
+  }
+  .react-calendar .forecast_0 {
+    background-color: rgb(0, 255, 55);
+  }
+  .react-calendar .forecast_10 {
+    background-color: rgb(0, 255, 55, 0.75);
+  }
+  .react-calendar .forecast_20 {
+    background-color: rgb(0, 255, 55, 0.50);
+  }
+  .react-calendar .forecast_30 {
+    background-color: rgb(0, 255, 0, 0.25);
+  }
+  .react-calendar .forecast_40 {
+    background-color: rgb(255, 0, 0), 0.3;
+  }
+  .react-calendar .forecast_50 {
+    background-color: rgb(255, 0, 0, 0.4);
+  }
+  .react-calendar .forecast_60 {
+    background-color: rgb(255, 0, 0, 0.5);
+  }
+  .react-calendar .forecast_70 {
+    background-color: rgb(255, 0, 0, 0.6);
+  }
+  .react-calendar .forecast_80 {
+    background-color: rgb(255, 0, 0, 0.7);
+  }
+  .react-calendar .forecast_90 {
+    background-color: rgb(255, 0, 0, 0.8);
+  }
+  .react-calendar .forecast_100 {
+    background-color: rgb(255, 0, 0);
   }
