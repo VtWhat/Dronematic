@@ -1,6 +1,5 @@
 'use client'
 
-import { Session } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
 import {Image} from "@nextui-org/image";
@@ -81,7 +80,7 @@ export default function Menu() {
           </Card>
 
           <Card className="py-4" isPressable 
-          onClick={(e) => router.push('/service/show')} >
+          onClick={(e) => router.push('/manage')} >
           <CardBody className="overflow-visible py-2">
               <Image
                 alt="Card background"

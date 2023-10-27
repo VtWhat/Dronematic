@@ -1,9 +1,9 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import NavBar from '@/components/NavBar'
-import Menu from './Menu'
+import ManageMenu from './ManageMenu'
 
-export default async function Home() {
+export default async function Manage() {
   const supabase = createServerComponentClient({ cookies })
 
   const {
@@ -15,7 +15,7 @@ export default async function Home() {
 
       <NavBar session={session}/>
 
-      <Menu />
+      <ManageMenu />
 
     </div>
   )
