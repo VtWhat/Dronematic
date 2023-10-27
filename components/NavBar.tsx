@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import DronematicLogo from "./DronematicLogo";
-
-import {  Navbar,   NavbarBrand,   NavbarContent,   NavbarItem,   NavbarMenuToggle,  NavbarMenu,  NavbarMenuItem} from "@nextui-org/navbar";
-import {Button, ButtonGroup} from "@nextui-org/button";
+import {  Navbar,   NavbarBrand,   NavbarContent,   NavbarItem } from "@nextui-org/navbar";
+import {Button } from "@nextui-org/button";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@nextui-org/dropdown";
-import {Avatar, AvatarGroup, AvatarIcon} from "@nextui-org/avatar";
+import {Avatar,} from "@nextui-org/avatar";
 import { useRouter } from "next/navigation";
-import { dropdown, dropdownItem, getKeyValue } from "@nextui-org/react";
 
 export default function NavBar({ session }: { session: Session | null }) {
     const router = useRouter()
@@ -33,21 +31,29 @@ export default function NavBar({ session }: { session: Session | null }) {
                                 size="sm"
                                 src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
                         </DropdownTrigger>
-                        <DropdownMenu aria-label="Profile Actions" variant="flat">
+                        <DropdownMenu aria-label="Profile Actions" variant="flat"
+                        //throws unhandled runtime error but still wokrs...
+                        onAction={(item) => {
+                            if(
+                                item.toString() == '/home' ||
+                                item.toString() == '/user/update') {
+                                    router.push( item.toString() )
+                            }}}
+                        >
                             <DropdownItem key="profile" className="h-14 gap-2">
                                 <p className="font-semibold">Logado como</p>
                                 <p className="font-semibold">{session.user.email}</p>
                             </DropdownItem>
-                            <DropdownItem key="home">
+                            <DropdownItem key="/home">
                                 Ir para a Home
                             </DropdownItem>
-                            <DropdownItem key="profile">
+                            <DropdownItem key="/user/update">
                                 Meus Dados
                             </DropdownItem>
                             <DropdownItem key="config">Configurações</DropdownItem>
                             <DropdownItem key="analytics">Analytics</DropdownItem>
                             <DropdownItem key="help">Ajuda & Feedback</DropdownItem>
-                            <DropdownItem key="logout" color="danger">
+                            <DropdownItem key="/auth/sign-out" color="danger">
                                 <form action="/auth/sign-out" method="post">
                                     <button type="submit">
                                         Sair
