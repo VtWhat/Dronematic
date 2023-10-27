@@ -11,12 +11,12 @@ export default async function Home() {
   const supabase = createServerComponentClient({ cookies })
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser()
+    data: { session },
+  } = await supabase.auth.getSession()
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
-        <NavBar email={user?.email}/>
+        <NavBar session={session}/>
         Página de menu com opções
         <br />
         <Link

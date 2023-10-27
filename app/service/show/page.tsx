@@ -14,7 +14,7 @@ export default async function ExibirServicos() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <NavBar email={session?.user.email}/>
+      <NavBar session={session}/>
         Exibição de Serviços Cadastrados
 
         <BackButton />

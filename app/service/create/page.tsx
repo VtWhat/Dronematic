@@ -19,7 +19,7 @@ export default async function CadastrarServico() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <NavBar email={session?.user.email}/>
+      <NavBar session={session}/>
         Selecione um cliente para cadastrar um serviço
         <BackButton />
 

@@ -14,7 +14,7 @@ export default async function UpdateService() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <NavBar email={session?.user.email}/>
+      <NavBar session={session}/>
         Formulário de atualização de serviços
 
         <BackButton />

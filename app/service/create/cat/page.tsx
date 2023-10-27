@@ -18,7 +18,7 @@ export default async function SelectCategory() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <NavBar email={session?.user.email}/>
+      <NavBar session={session}/>
         Selecione a categoria do serviço
         <BackButton />
 

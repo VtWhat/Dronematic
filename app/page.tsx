@@ -1,19 +1,19 @@
-import DronematicLogo from '@/components/DronematicLogo'
-import LogoutButton from '@/components/LogoutButton'
+import NavBar from '@/components/NavBar'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import Link from 'next/link'
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies })
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser()
+    data: { session },
+  } = await supabase.auth.getSession()
 
   return (
     <div className="w-full flex flex-col items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+      <NavBar session={session} />
+
+      {/* <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
           <DronematicLogo />
           {user ? (
@@ -31,7 +31,7 @@ export default async function Index() {
           )}
         </div>
       </nav>
-      Página de explicação do projeto, funcionalidades, finalidade, etc
+      Página de explicação do projeto, funcionalidades, finalidade, etc */}
       
     </div>
   )
