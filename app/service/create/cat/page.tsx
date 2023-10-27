@@ -1,6 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import BackButton from '@/components/BackButton'
+import Back from '@/components/Back'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import SelectCat from './SelectCat'
@@ -20,7 +20,7 @@ export default async function SelectCategory() {
     <div className="w-full flex flex-col items-center">
       <NavBar session={session}/>
         Selecione a categoria do serviço
-        <BackButton />
+        <Back />
 
         <SelectCat />
 

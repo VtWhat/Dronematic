@@ -1,6 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import BackButton from '@/components/BackButton'
+import Back from '@/components/Back'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import UpdateClienteForm from './UpdateClienteForm'
@@ -17,7 +17,7 @@ export default async function UpdateCustomer() {
       <NavBar session={session}/>
         Formulário de atualização de clientes
 
-        <BackButton />
+        <Back />
 
         <UpdateClienteForm  session={session}/>
       

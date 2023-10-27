@@ -3,7 +3,7 @@
 import Link from "next/link";
 import DronematicLogo from "./DronematicLogo";
 import {  Navbar,   NavbarBrand,   NavbarContent,   NavbarItem } from "@nextui-org/navbar";
-import {Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/button";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@nextui-org/dropdown";
 import {Avatar,} from "@nextui-org/avatar";

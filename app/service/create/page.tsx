@@ -1,6 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import BackButton from '@/components/BackButton'
+import Back from '@/components/Back'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import SelectCustomer from './SelectCustomer'
@@ -21,7 +21,7 @@ export default async function CadastrarServico() {
     <div className="w-full flex flex-col items-center">
       <NavBar session={session}/>
         Selecione um cliente para cadastrar um serviço
-        <BackButton />
+        <Back />
 
         {data?.map((data, index) => 
             <div key={index} className="flex flex-col bg-zinc-200 hover:shadow-2xl rounded-3xl px-5 py-5 border-2 border-black border-solid shadow-md">

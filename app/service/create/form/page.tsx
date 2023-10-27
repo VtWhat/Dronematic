@@ -1,6 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import BackButton from '@/components/BackButton'
+import Back from '@/components/Back'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import ServicoForm from './ServicoForm'
@@ -16,7 +16,7 @@ export default async function CadastrarServico() {
     <div className="w-full flex flex-col items-center">
       <NavBar session={session}/>
         Formulário de cadastro de Serviço
-        <BackButton />
+        <Back />
 
         <ServicoForm  session={session}/>
       

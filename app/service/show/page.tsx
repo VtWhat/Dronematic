@@ -1,6 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import BackButton from '@/components/BackButton'
+import Back from '@/components/Back'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import FetchServicos from './FetchServicos'
@@ -17,7 +17,7 @@ export default async function ExibirServicos() {
       <NavBar session={session}/>
         Exibição de Serviços Cadastrados
 
-        <BackButton />
+        <Back />
 
         <FetchServicos />
       
