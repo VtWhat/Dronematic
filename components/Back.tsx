@@ -8,7 +8,7 @@ export default function Back(){
         href='/home'
         color="default"
         variant="shadow"
-        className="absolute top-24">
+        className="absolute top-8 left-8">
             <p>Voltar</p>
         </Button>
     )
