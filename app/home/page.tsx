@@ -5,6 +5,8 @@ import NavBar from '@/components/NavBar'
 import { useEffect } from 'react'
 import HomeForecast from '@/components/Forecast/HomeForecast'
 
+import {Button} from '@nextui-org/button'; 
+
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies })
 
@@ -51,6 +53,8 @@ export default async function Home() {
         </Link>
 
         <HomeForecast />
+
+        <Button>Clica ni mim! (teste)</Button>
       
     </div>
   )

@@ -1,6 +1,8 @@
 import { Toaster } from 'react-hot-toast'
 import './globals.css'
 
+import {Providers} from "./providers";
+
 export const metadata = {
   title: 'Dronematic',
   description: 'Drone Services Assistant',
@@ -14,16 +16,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <main className="min-h-screen bg-gray-50 flex flex-col items-center">
-          {children}
+      <html lang="en" className='light'>
+        <body>
+          <Providers>
+            {children}
+          </Providers>
           <Toaster
           position="top-right"
           reverseOrder={false}
-        />
-        </main>
-      </body>
-    </html>
+          />
+        </body>
+      </html>
   )
 }
