@@ -15,11 +15,8 @@ export default async function UpdateService() {
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar session={session}/>
-        Formulário de atualização de serviços
 
-        <Back />
-
-        <UpdateServiceForm  session={session}/>
+      <UpdateServiceForm  session={session}/>
       
     </div>
   )
