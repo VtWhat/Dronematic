@@ -13,12 +13,10 @@ export default async function CadastrarCliente() {
   } = await supabase.auth.getSession()
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div>
       <NavBar session={session}/>
-        Formulário de cadastro de clientes
-        <Back />
 
-        <CadastroForm  session={session}/>
+      <CadastroForm  session={session}/>
       
     </div>
   )

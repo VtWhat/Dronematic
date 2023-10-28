@@ -28,7 +28,7 @@ export default function LoginForm() {
                 />
             </Link>    
             <form
-            className="bg-gray-200 flex flex-col justify-center items-center py-16 px-24 rounded-xl gap-6 shadow-2xl mt-8"
+            className="bg-white flex flex-col justify-center items-center py-16 px-24 rounded-xl gap-6 shadow-2xl mt-8"
             action="/auth/sign-in"
             method="post"
             >
