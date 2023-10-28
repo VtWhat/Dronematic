@@ -13,13 +13,10 @@ export default async function UpdateUserProfile() {
   } = await supabase.auth.getSession()
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div>
       <NavBar session={session}/>
-        Formulário de atualização de perfil de usuário
 
-        <Back />
-
-        <UpdateUserProfileForm  session={session}/>
+      <UpdateUserProfileForm  session={session}/>
       
     </div>
   )

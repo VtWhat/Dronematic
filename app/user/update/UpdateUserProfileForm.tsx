@@ -5,6 +5,8 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
+import { Button } from "@nextui-org/button";
+import {Input} from "@nextui-org/input";
 
 export default function UpdateUserProfileForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -14,7 +16,6 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
   const [email, setEmail] = useState<string | undefined>("")
   const [telefone, setTelefone] = useState<string>("")
   const [website, setWebsite] = useState<string | null>("")
-  const [senha, setSenha] = useState<string>("")
 
   const user = session?.user
 
@@ -40,7 +41,6 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
   const getUserProfile = useCallback(async () => {
     try {
         setEmail(user?.email)
-        setSenha("********")
 
       let { data, error, status } = await supabase
         .from("userprofile")
@@ -121,80 +121,23 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
   }
 
   return (
-    <div className="form-widget flex flex-col gap-3">
-      <div className="flex flex-col">
-        <label htmlFor="nome">Nome Completo</label>
-        <input
-          id="nome"
-          type="text"
-          value={nome || ''}
-          className="bg-zinc-200 rounded-md px-2"
-          placeholder="Digite seu Nome"
-          onChange={(e) => setNome(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="endereco">Endereço</label>
-        <input
-          id="endereco"
-          type="text"
-          value={endereco || ''}
-          className="bg-zinc-200 rounded-md px-2"
-          placeholder="Digite seu Endereço"
-          onChange={(e) => setEndereco(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="telefone">Telefone</label>
-        <input
-          id="telefone"
-          type="number"
-          value={telefone || ''}
-          placeholder="Digite seu Telefone"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setTelefone(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="website">Website <small>Opcional</small></label>
-        <input
-          id="website"
-          type="text"
-          value={website || ''}
-          placeholder="Digite seu Website"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="text"
-          value={email || ""}
-          placeholder="email@gmail.com"
-          className="bg-zinc-200 rounded-md px-2"
-          disabled
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="senha">Senha</label>
-        <input
-          id="senha"
-          type="text"
-          value={senha|| ""}
-          placeholder="********"
-          className="bg-zinc-200 rounded-md px-2"
-          disabled
-        />
-      </div>
+    <div className='w-full flex flex-col justify-center items-center'>  
+      <form
+      className="bg-white flex flex-col justify-center items-center py-10 px-24 rounded-xl gap-4 shadow-2xl my-10">
+          <label className="text-3xl font-sans font-bold text-black">Dados do Usuário</label>
 
-        <button
-            className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            onClick={() => updateUser()}
-        >
-          Salvar
-        </button>
-    </div>
+          <Input label="Nome Completo" size="sm" value={nome || ''} variant="faded" radius="full" onChange={(e) => setNome(e.target.value)}/>
+          <Input label="Endereço" size="sm" value={endereco || ''} variant="faded" radius="full" onChange={(e) => setEndereco(e.target.value)}/>
+          <Input label="Telefone" type="number" value={telefone || ''} size="sm" variant="faded" radius="full" onChange={(e) => setTelefone(e.target.value)}/>
+          <Input label="Website" value={website || ''} size="sm" variant="faded" radius="full" onChange={(e) => setWebsite(e.target.value)}/>
+          <Input isReadOnly label="Email" value={email || ''} size="sm" variant="faded" radius="full"/>
+          <Input isReadOnly label="Senha" value={"********"} size="sm" variant="faded" radius="full"/>
+
+          <Button color="primary" variant="shadow" radius="full" size="lg"
+          onClick={() => updateUser()}>
+            Salvar Dados
+          </Button>
+      </form>
+  </div>
   )
 }
