@@ -7,6 +7,7 @@ import { z } from "zod";
 import toast from 'react-hot-toast'
 import { Button } from "@nextui-org/button";
 import {Input} from "@nextui-org/input";
+import { Divider } from '@nextui-org/react'
 
 export default function CadastrarClientesForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -172,18 +173,19 @@ export default function CadastrarClientesForm({ session }: { session: Session | 
       <form
       className="bg-white flex flex-col justify-center items-center py-10 px-24 rounded-xl gap-4 shadow-2xl my-10">
           <label className="text-3xl font-sans font-bold text-black">Cadastro de Cliente</label>
+          <Divider/>
 
-          <Input  label="Nome" size="sm" variant="faded" radius="full" onChange={(e) => setNome(e.target.value)}/>
-          <Input  label="Sobrenome" size="sm" variant="faded" radius="full" onChange={(e) => setSobrenome(e.target.value)}/>
-          <Input  label="Email" size="sm" variant="faded" radius="full" onChange={(e) => setEmail(e.target.value)}/>
-          <Input  label="Telefone" type="number" size="sm" variant="faded" radius="full" onChange={(e) => setTelefone_1(e.target.value)}/>
-          <Input  label="CPF" type="number" size="sm" variant="faded" radius="full" onChange={(e) => setCpf(e.target.value)}/>
-          <Input  label="Cidade" size="sm" variant="faded" radius="full" onChange={(e) => setCidade(e.target.value)}/>
-          <Input  label="Estado" size="sm" variant="faded" radius="full" onChange={(e) => setEstado(e.target.value)}/>
-          <Input  label="Bairro" size="sm" variant="faded" radius="full" onChange={(e) => setBairro(e.target.value)}/>
-          <Input  label="Rua" size="sm" variant="faded" radius="full" onChange={(e) => setRua(e.target.value)}/>
-          <Input  label="Numero" size="sm" variant="faded" radius="full" onChange={(e) => setNumero(e.target.value)}/>
-          <Input  label="CEP" type="number" size="sm" variant="faded" radius="full" onChange={(e) => setCep(e.target.value)}/>
+          <Input isRequired label="Nome" size="sm" variant="faded" radius="full" onChange={(e) => setNome(e.target.value)}/>
+          <Input isRequired label="Sobrenome" size="sm" variant="faded" radius="full" onChange={(e) => setSobrenome(e.target.value)}/>
+          <Input isRequired label="Email" size="sm" variant="faded" radius="full" onChange={(e) => setEmail(e.target.value)}/>
+          <Input isRequired label="Telefone" type="number" size="sm" variant="faded" radius="full" onChange={(e) => setTelefone_1(e.target.value)}/>
+          <Input isRequired label="CPF" type="number" size="sm" variant="faded" radius="full" onChange={(e) => setCpf(e.target.value)}/>
+          <Input isRequired label="Cidade" size="sm" variant="faded" radius="full" onChange={(e) => setCidade(e.target.value)}/>
+          <Input isRequired label="Estado" size="sm" variant="faded" radius="full" onChange={(e) => setEstado(e.target.value)}/>
+          <Input isRequired label="Bairro" size="sm" variant="faded" radius="full" onChange={(e) => setBairro(e.target.value)}/>
+          <Input isRequired label="Rua" size="sm" variant="faded" radius="full" onChange={(e) => setRua(e.target.value)}/>
+          <Input isRequired label="Numero" size="sm" variant="faded" radius="full" onChange={(e) => setNumero(e.target.value)}/>
+          <Input isRequired label="CEP" type="number" size="sm" variant="faded" radius="full" onChange={(e) => setCep(e.target.value)}/>
 
           <Button color="primary" variant="shadow" radius="full" size="lg"
           onClick={() => cadastrarCliente({ nome, sobrenome, email, telefone_1, telefone_2, cpf, cidade, estado, bairro, rua, numero, cep })}>

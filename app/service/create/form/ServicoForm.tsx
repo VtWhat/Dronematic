@@ -8,6 +8,11 @@ import { z } from "zod";
 import toast from 'react-hot-toast'
 import ReactCalendar from 'react-calendar'
 import "components/styles/Calendar.css"
+import { Button } from "@nextui-org/button";
+import {Input} from "@nextui-org/input";
+import { Divider } from '@nextui-org/react'
+import {Select, SelectItem} from "@nextui-org/select";
+import {Textarea} from "@nextui-org/react";
 
 export default function CadastrarServicoForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -71,6 +76,138 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   const [isol, setIsol] = useState<string>("")
   const [shutter, setShutter] = useState<string>("")
   const [wb, setWb] = useState<string>("")
+
+  //select options
+  const droneOptions: string[] = [
+    "DJI Avata",
+    "DJI FPV",
+    "DJI Mavic Mini",
+    "DJI Mini SE",
+    "DJI Mini 2",
+    "DJI Mini 2 SE",
+    "DJI Mini 3",
+    "DJI Mini 3 Pro",
+    "DJI Mini 4 Pro",
+    "Outro",  
+  ]
+
+  const cameraOptions: string[] = [
+    "Câmera do Drone",
+    "GoPro 12",
+    "GoPro 11",
+    "GoPro 10",
+    "GoPro 9",
+    "GoPro 8",
+    "GoPro 7",
+    "GoPro 6",
+    "GoPro 5",
+    "Outro",
+  ]
+
+  const filterOptions: string[] = [
+    "ND2",
+    "ND4",
+    "ND8",
+    "ND16",
+    "ND32",
+    "ND64",
+    "CPL",
+    "UV",
+    "Sem Filtro",
+  ]
+
+  const aspectOptions: string[] = [
+    "4:3",
+    "3:2",
+    "16:9",
+    "21:9",
+  ]
+
+  const videoqOptions: string[] = [
+    "4K@60fps",
+    "4K@50fps",
+    "4K@30fps",
+    "2.7K@120fps",
+    "2.7K@100fps",
+    "2.7K@60fps",
+    "2.7K@50fps",
+    "2.7K@30fps",
+    "1080p@120fps",
+    "1080p@100fps",
+    "1080p@60fps",
+    "1080p@50fps",
+    "1080p@30fps",
+  ]
+
+  const fovOptions: string[] = [
+    "Normal",
+    "Wide",
+    "Ultra Wide",
+  ]
+
+  const colorOptions: string[] = [
+    "Standard",
+    "D-Cinelike",
+  ]
+
+  const eisOptions: string[] = [
+    "RockSteady",
+    "HorizonSteady",
+    "Gyroflow",
+    "Nenhum",
+  ]
+
+  const isoOptions: string[] = [
+    "100",
+    "200",
+    "400",
+    "800",
+    "1600",
+    "3200",
+    "6400",
+    "12800",
+    "25600",
+    "Auto",
+  ]
+
+  const isolOptions: string[] = [
+    "100",
+    "200",
+    "400",
+    "800",
+    "1600",
+    "3200",
+    "6400",
+  ]
+
+  const shutterOptions: string[] = [
+    "1/60",
+    "1/80",
+    "1/100",
+    "1/120",
+    "1/160",
+    "1/200",
+    "1/240",
+    "1/320",
+    "1/400",
+    "1/500",
+    "1/640",
+  ]
+
+  const wbOptions: string[] = [
+      "6000K",
+      "5900K",
+      "5800K",
+      "5700K",
+      "5600K",
+      "5500K",
+      "5400K",
+      "5300K",
+      "5200K",
+      "5100K",
+      "5000K",
+      "Auto",
+  ]
 
   const user = session?.user
   const router = useRouter()
@@ -212,451 +349,190 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   }
 
   return (
-    <div className="form-widget flex flex-col gap-3">
-    <div>Informações do Cliente
-      <div className="flex flex-col">
-        <label htmlFor="nome">Nome</label>
-        <input
-          id="nome"
-          type="text"
-          value={nome || ''}
-          className="bg-zinc-200 rounded-md px-2"
-          placeholder=""
-          onChange={(e) => setNome(e.target.value)}
-          disabled
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="sobrenome">Sobrenome</label>
-        <input
-          id="nome"
-          type="text"
-          value={sobrenome || ''}
-          className="bg-zinc-200 rounded-md px-2"
-          placeholder=""
-          onChange={(e) => setSobrenome(e.target.value)}
-          disabled
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="text"
-          value={email || ''}
-          className="bg-zinc-200 rounded-md px-2"
-          placeholder=""
-          onChange={(e) => setEmail(e.target.value)}
-          disabled
-        />
-      </div>
-    </div>
-    <div>Informações do serviço
-      <div className="flex flex-col">
-          <label htmlFor="desc">Descrição</label>
-          <input
-            id="desc"
-            type="text"
-            value={description || ""}
-            placeholder="O que deve ser feito"
-            className="bg-zinc-200 rounded-md px-2"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="route">Rota de voo</label>
-          <input
-            id="route"
-            type="text"
-            value={route || ""}
-            placeholder="A rota a ser seguida"
-            className="bg-zinc-200 rounded-md px-2"
-            onChange={(e) => setRoute(e.target.value)}
-          />
-        </div>
-    </div>
-
-    <div>Local de Voo
-
-    <div className="flex flex-col">
-        <label htmlFor="cidade">Cidade</label>
-        <input
-          id="cidade"
-          type="text"
-          value={cidade || ""}
-          placeholder="Gravataí"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setCidade(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="estado">Estado</label>
-        <input
-          id="estado"
-          type="text"
-          value={estado || ""}
-          placeholder="RS"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setEstado(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="bairro">Bairro</label>
-        <input
-          id="bairro"
-          type="text"
-          value={bairro || ""}
-          placeholder="Sítio Gaúcho"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setBairro(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="rua">Rua</label>
-        <input
-          id="rua"
-          type="text"
-          value={rua || ""}
-          placeholder="Rua Comandante Zero"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setRua(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="numero">Numero</label>
-        <input
-          id="numero"
-          type="number"
-          value={numero || ""}
-          placeholder="46"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setNumero(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="cep">CEP</label>
-        <input
-          id="cep"
-          type="number"
-          value={cep || ""}
-          placeholder="94195060"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setCep(e.target.value)}
-        />
-      </div>
-    </div>
-
-    <div className="flex flex-col items-center justify-center">Data
-      <ReactCalendar
-        minDate={new Date()}
-        className='REACT-CALENDAR p-2'
-        view='month'
-        defaultValue={new Date(2017, 0, 1)}
-        onClickDay={(date) => setDiavoo(date)}
-        tileClassName={({ date, view }) => {
-          if (
-              view === 'month' &&
-              date.getDate() === diavoo.getDate() &&
-              date.getMonth() === diavoo.getMonth() &&
-              date.getFullYear() === diavoo.getFullYear()
-            ) {
-              return 'highlight_selected';
-            }
-
-          for(let i = 0; i < forecastData?.daily.time.length; i++){
+    <div className='w-full flex flex-col justify-center items-center'>  
+      <form
+      className="bg-white flex flex-col justify-center items-center py-10 px-24 rounded-xl gap-4 shadow-2xl my-10">
+          <label className="text-3xl font-sans font-bold text-black">Cadastro de Serviço</label>
+          <Divider />
+          <p>Cliente</p>
+          <Input isReadOnly label="Cliente" size="sm" variant="faded" radius="full" value={nome + " " + sobrenome}/>
+          <Input isReadOnly label="Email" size="sm" variant="faded" radius="full" value={email}/>
+          <Divider />
+          <p>Detalhes</p>
+          <Textarea isRequired label="Descrição" size="sm" variant="faded" minRows={1} radius="lg" onChange={(e) => setDescription(e.target.value)}/>
+          <Textarea label="Detalhes de Rota" size="sm" variant="faded" radius="lg" minRows={1} onChange={(e) => setRoute(e.target.value)}/>
+          <Divider />
+          <p>Local</p>
+          <Input isRequired label="Cidade" size="sm" variant="faded" radius="full" onChange={(e) => setCidade(e.target.value)}/>
+          <Input isRequired label="Estado" size="sm" variant="faded" radius="full" onChange={(e) => setEstado(e.target.value)}/>
+          <Input isRequired label="Bairro" size="sm" variant="faded" radius="full" onChange={(e) => setBairro(e.target.value)}/>
+          <Input isRequired label="Rua" size="sm" variant="faded" radius="full" onChange={(e) => setRua(e.target.value)}/>
+          <Input isRequired label="Numero" size="sm" variant="faded" radius="full" onChange={(e) => setNumero(e.target.value)}/>
+          <Input isRequired label="CEP" type="number" size="sm" variant="faded" radius="full" onChange={(e) => setCep(e.target.value)}/>
+          <Divider />
+          <p>Data</p>
+          <ReactCalendar
+          minDate={new Date()}
+          className='REACT-CALENDAR p-2'
+          view='month'
+          defaultValue={new Date(2017, 0, 1)}
+          onClickDay={(date) => setDiavoo(date)}
+          tileClassName={({ date, view }) => {
             if (
-              date.getUTCDate() === new Date(forecastData?.daily.time[i]).getUTCDate() &&
-              date.getUTCMonth() === new Date(forecastData?.daily.time[i]).getUTCMonth() &&
-              date.getUTCFullYear() === new Date(forecastData?.daily.time[i]).getUTCFullYear()
-          ) {
-              if(forecastData?.daily.precipitation_probability_max[i] == 0){
-                return 'forecast_0'
-              } else
-              if(forecastData?.daily.precipitation_probability_max[i] > 0 && forecastData?.daily.precipitation_probability_max[i] <= 10){
-                return 'forecast_10'
-              } else
-              if(forecastData?.daily.precipitation_probability_max[i] > 10 && forecastData?.daily.precipitation_probability_max[i] <= 20){
-                return 'forecast_20'
-              } else 
-              if(forecastData?.daily.precipitation_probability_max[i] > 20 && forecastData?.daily.precipitation_probability_max[i] <= 30){
-                return 'forecast_30'
-              } else
-              if(forecastData?.daily.precipitation_probability_max[i] > 30 && forecastData?.daily.precipitation_probability_max[i] <= 40){
-                return 'forecast_40'
-              } else 
-              if(forecastData?.daily.precipitation_probability_max[i] > 40 && forecastData?.daily.precipitation_probability_max[i] <= 50){
-                return 'forecast_50'
-              } else
-              if(forecastData?.daily.precipitation_probability_max[i] > 50 && forecastData?.daily.precipitation_probability_max[i] <= 60){
-                return 'forecast_60'
-              } else
-              if(forecastData?.daily.precipitation_probability_max[i] > 60 && forecastData?.daily.precipitation_probability_max[i] <= 70){
-                return 'forecast_70'
+                view === 'month' &&
+                date.getDate() === diavoo.getDate() &&
+                date.getMonth() === diavoo.getMonth() &&
+                date.getFullYear() === diavoo.getFullYear()
+              ) {
+                return 'highlight_selected';
               }
-              if(forecastData?.daily.precipitation_probability_max[i] > 70 && forecastData?.daily.precipitation_probability_max[i] <= 80){
-                return 'forecast_80'
-              }
-              if(forecastData?.daily.precipitation_probability_max[i] > 80 && forecastData?.daily.precipitation_probability_max[i] <= 90){
-                return 'forecast_90'
-              }
-              if(forecastData?.daily.precipitation_probability_max[i] > 90){
-                return 'forecast_100'
-              }
-          }
-          }
-        }}
-       />
-    </div>
 
-    <div>Especificações
+            for(let i = 0; i < forecastData?.daily.time.length; i++){
+              if (
+                date.getUTCDate() === new Date(forecastData?.daily.time[i]).getUTCDate() &&
+                date.getUTCMonth() === new Date(forecastData?.daily.time[i]).getUTCMonth() &&
+                date.getUTCFullYear() === new Date(forecastData?.daily.time[i]).getUTCFullYear()
+            ) {
+                if(forecastData?.daily.precipitation_probability_max[i] == 0){
+                  return 'forecast_0'
+                } else
+                if(forecastData?.daily.precipitation_probability_max[i] > 0 && forecastData?.daily.precipitation_probability_max[i] <= 10){
+                  return 'forecast_10'
+                } else
+                if(forecastData?.daily.precipitation_probability_max[i] > 10 && forecastData?.daily.precipitation_probability_max[i] <= 20){
+                  return 'forecast_20'
+                } else 
+                if(forecastData?.daily.precipitation_probability_max[i] > 20 && forecastData?.daily.precipitation_probability_max[i] <= 30){
+                  return 'forecast_30'
+                } else
+                if(forecastData?.daily.precipitation_probability_max[i] > 30 && forecastData?.daily.precipitation_probability_max[i] <= 40){
+                  return 'forecast_40'
+                } else 
+                if(forecastData?.daily.precipitation_probability_max[i] > 40 && forecastData?.daily.precipitation_probability_max[i] <= 50){
+                  return 'forecast_50'
+                } else
+                if(forecastData?.daily.precipitation_probability_max[i] > 50 && forecastData?.daily.precipitation_probability_max[i] <= 60){
+                  return 'forecast_60'
+                } else
+                if(forecastData?.daily.precipitation_probability_max[i] > 60 && forecastData?.daily.precipitation_probability_max[i] <= 70){
+                  return 'forecast_70'
+                }
+                if(forecastData?.daily.precipitation_probability_max[i] > 70 && forecastData?.daily.precipitation_probability_max[i] <= 80){
+                  return 'forecast_80'
+                }
+                if(forecastData?.daily.precipitation_probability_max[i] > 80 && forecastData?.daily.precipitation_probability_max[i] <= 90){
+                  return 'forecast_90'
+                }
+                if(forecastData?.daily.precipitation_probability_max[i] > 90){
+                  return 'forecast_100'
+                }
+            }
+            }
+          }}
+        />
+          <Divider />
+          <p>Especificações</p>
+          <Select isRequired label="Drone" radius="full" variant='faded' size='sm' onChange={(e) => setDrone(e.target.value)}>
+            {droneOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="drone">Drone</label>
-      <select
-        id="drone"
-        value={drone || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setDrone(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="DJI Avata">DJI Avata</option>
-        <option value="DJI FPV">DJI FPV</option>
-        <option value="DJI Mavic Mini">DJI Mavic Mini</option>
-        <option value="DJI Mini SE">DJI Mini SE</option>
-        <option value="DJI Mini 2">DJI Mini 2</option>
-        <option value="DJI Mini 2 SE">DJI Mini 2 SE</option>
-        <option value="DJI Mini 3">DJI Mini 3</option>
-        <option value="DJI Mini 3 Pro">DJI Mini 3 Pro</option>
-        <option value="DJI Mini 4 Pro">DJI Mini 4 Pro</option>
-        <option value="Outro">Outro</option>
+          <Select isRequired label="Câmera" radius="full" variant='faded' size='sm' onChange={(e) => setCam(e.target.value)}>
+            {cameraOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-      </select>
-    </div>
+          <Select label="Filtro de Lente" radius="full" variant='faded' size='sm' onChange={(e) => setFiltro(e.target.value)}>
+            {filterOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="camera">Câmera</label>
-      <select
-        id="cam"
-        value={cam || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setCam(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="Câmera do Drone">Câmera do Drone</option>
-        <option value="GoPro 12">GoPro 12</option>
-        <option value="GoPro 11">GoPro 11</option>
-        <option value="GoPro 10">GoPro 10</option>
-        <option value="GoPro 9">GoPro 9</option>
-        <option value="GoPro 8">GoPro 8</option>
-        <option value="GoPro 7">GoPro 7</option>
-        <option value="GoPro 6">GoPro 6</option>
-        <option value="GoPro 5">GoPro 5</option>
-        <option value="Outro">Outro</option>
-      </select>
-    </div>
+          <Select label="Aspect Ratio (Taxa de Proporção)" radius="full" variant='faded' size='sm' onChange={(e) => setAspect(e.target.value)}>
+            {aspectOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="filtro">Filtro</label>
-      <select
-        id="filtro"
-        value={filtro || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setFiltro(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="ND2">ND2</option>
-        <option value="ND4">ND4</option>
-        <option value="ND8">ND8</option>
-        <option value="ND16">ND16</option>
-        <option value="ND32">ND32</option>
-        <option value="ND64">ND64</option>
-        <option value="CPL">CPL</option>
-        <option value="UV">UV</option>
-        <option value="Sem Filtro">Sem Filtro</option>
-      </select>
-    </div>
+          <Select label="Qualidade do Vídeo" radius="full" variant='faded' size='sm' onChange={(e) => setVideoq(e.target.value)}>
+            {videoqOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="aspect">Aspect Ratio <small>opcional</small></label>
-      <select
-        id="aspect"
-        value={aspect || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setAspect(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="4:3">4:3</option>
-        <option value="3:2">3:2</option>
-        <option value="16:9">16:9</option>
-        <option value="21:9">21:9</option>
-      </select>
-    </div>
+          <Select label="FOV (Campo de Visão)" radius="full" variant='faded' size='sm' onChange={(e) => setFov(e.target.value)}>
+            {fovOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="videoq">Vídeo Quality <small>opcional</small></label>
-      <select
-        id="videoq"
-        value={videoq || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setVideoq(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="4K@60fps">4K@60fps</option>
-        <option value="4K@50fps">4K@50fps</option>
-        <option value="4K@30fps">4K@30fps</option>
-        <option value="2.7K@120fps">2.7K@120fps</option>
-        <option value="2.7K@100fps">2.7K@100fps</option>
-        <option value="2.7K@60fps">2.7K@60fps</option>
-        <option value="2.7K@50fps">2.7K@50fps</option>
-        <option value="2.7K@30fps">2.7K@30fps</option>
-        <option value="1080p@120fps">1080p@120fps</option>
-        <option value="1080p@100fps">1080p@100fps</option>
-        <option value="1080p@60fps">1080p@60fps</option>
-        <option value="1080p@50fps">1080p@50fps</option>
-        <option value="1080p@30fps">1080p@30fps</option>
-      </select>
-    </div>
+          <Select label="EIS (Estabilização de Imagem)" radius="full" variant='faded' size='sm' onChange={(e) => setEis(e.target.value)}>
+            {eisOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="fov">FOV <small>opcional</small></label>
-      <select
-        id="fov"
-        value={fov || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setFov(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="Normal">Normal</option>
-        <option value="Wide">Wide</option>
-        <option value="Ultra Wide">Ultra Wide</option>
-      </select>
-    </div>
+          <Select label="Color Mode (Modo de Cor)" radius="full" variant='faded' size='sm' onChange={(e) => setColor(e.target.value)}>
+            {colorOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="eis">EIS <small>opcional</small></label>
-      <select
-        id="eis"
-        value={eis || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setEis(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="RockSteady">RockSteady</option>
-        <option value="HorizonSteady">HorizonSteady</option>
-        <option value="Gyroflow">Gyroflow</option>
-        <option value="Nenhum">Nenhum</option>
-      </select>
-    </div>
+          <Select label="ISO (Sensibilidade a Luz)" radius="full" variant='faded' size='sm' onChange={(e) => setIso(e.target.value)}>
+            {isoOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="color">Color Mode <small>opcional</small></label>
-      <select
-        id="color"
-        value={color || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setColor(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="Standard">Standard</option>
-        <option value="D-Cinelike">D-Cinelike</option>
-      </select>
-    </div>
+          <Select label="Auto ISO Limit (Limite de ISO)" radius="full" variant='faded' size='sm' onChange={(e) => setIsol(e.target.value)}>
+            {isolOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
+          
+          <Select label="Shutter Speed (Velocidade do Obturador)" radius="full" variant='faded' size='sm' onChange={(e) => setShutter(e.target.value)}>
+            {shutterOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="iso">ISO <small>opcional</small></label>
-      <select
-        id="iso"
-        value={iso || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setIso(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-        <option value="400">400</option>
-        <option value="800">800</option>
-        <option value="1600">1600</option>
-        <option value="3200">3200</option>
-        <option value="6400">6400</option>
-        <option value="12800">12800</option>
-        <option value="25600">25600</option>
-        <option value="Auto">Auto</option>
-      </select>
-    </div>
+          <Select label="White Balance (Balanço Branco)" radius="full" variant='faded' size='sm' onChange={(e) => setWb(e.target.value)}>
+            {wbOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </Select>
 
-    <div className="flex flex-col">
-      <label htmlFor="isol">Auto ISO Limit <small>opcional</small></label>
-      <select
-        id="isol"
-        value={isol || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setIsol(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-        <option value="400">400</option>
-        <option value="800">800</option>
-        <option value="1600">1600</option>
-        <option value="3200">3200</option>
-        <option value="6400">6400</option>
-      </select>
-    </div>
-
-    <div className="flex flex-col">
-      <label htmlFor="shutter">Shutter Speed <small>opcional</small></label>
-      <select
-        id="shutter"
-        value={shutter || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setShutter(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="1/60">1/60</option>
-        <option value="1/80">1/80</option>
-        <option value="1/100">1/100</option>
-        <option value="1/120">1/120</option>
-        <option value="1/160">1/160</option>
-        <option value="1/200">1/200</option>
-        <option value="1/240">1/240</option>
-        <option value="1/320">1/320</option>
-        <option value="1/400">1/400</option>
-        <option value="1/500">1/500</option>
-        <option value="1/640">1/640</option>
-      </select>
-    </div>
-
-    <div className="flex flex-col">
-      <label htmlFor="wb">White Balance <small>opcional</small></label>
-      <select
-        id="wb"
-        value={wb || ''}
-        className="bg-zinc-200 rounded-md px-2"
-        onChange={(e) => setWb(e.target.value)}
-      >
-        <option value="NA" hidden>Selecione uma opção</option>
-        <option value="6000K">6000K</option>
-        <option value="5900K">5900K</option>
-        <option value="5800K">5800K</option>
-        <option value="5700K">5700K</option>
-        <option value="5600K">5600K</option>
-        <option value="5500K">5500K</option>
-        <option value="5400K">5400K</option>
-        <option value="5300K">5300K</option>
-        <option value="5200K">5200K</option>
-        <option value="5100K">5100K</option>
-        <option value="5000K">5000K</option>
-        <option value="Auto">Auto</option>
-      </select>
-    </div>
-  </div>
-
-        <button
-            className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            onClick={() => cadastrarServico()}
-        >
-          Cadastrar
-        </button>
-    </div>
+          <Button color="primary" variant="shadow" radius="full" size="lg"
+          onClick={() => cadastrarServico()}>
+            Cadastrar Serviço
+          </Button>
+      </form>
+  </div>  
   )
 }

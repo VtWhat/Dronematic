@@ -15,10 +15,8 @@ export default async function CadastrarServico() {
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar session={session}/>
-        Formulário de cadastro de Serviço
-        <Back />
 
-        <ServicoForm  session={session}/>
+      <ServicoForm  session={session}/>
       
     </div>
   )
