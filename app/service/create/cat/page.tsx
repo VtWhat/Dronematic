@@ -12,17 +12,13 @@ export default async function SelectCategory() {
     data: { session },
   } = await supabase.auth.getSession()
 
-  const {
-    data,
-  } = await supabase.from("clientes").select("cliente_id, nome, sobrenome, email")
-
   return (
-    <div className="w-full flex flex-col items-center">
+    <div>
       <NavBar session={session}/>
-        Selecione a categoria do serviço
-        <Back />
 
-        <SelectCat />
+      <SelectCat />
+
+      <Back />
 
     </div>
   )
