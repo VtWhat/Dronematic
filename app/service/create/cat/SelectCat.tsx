@@ -1,15 +1,11 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import toast from 'react-hot-toast'
 import Link from 'next/link'
-import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
 import {Image} from "@nextui-org/image";
 
 export default function SelectCat() {
-
-  const router = useRouter()
 
   const clienteID = Number(useSearchParams().get('cliente_id'))
 
@@ -68,31 +64,5 @@ export default function SelectCat() {
           )}
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-    // <div className='w-full flex flex-col items-center gap-2'>
-    //     {categorias?.map((cat, index) => 
-    //     <Link
-    //     key={index}
-    //     href={{
-    //         pathname: '/service/create/form',
-    //         query: "cliente_id="+clienteID.toString()+"&cat="+cat
-    //     }}
-    //     >
-    //         <button 
-    //         className="py-2 px-3 flex rounded-md no-underline bg-black hover:bg-green-900 text-white"
-    //         onClick={() => toast.success("Categoria Selecionada!")}
-    //             >{cat}
-    //         </button>
-    //     </Link>
-    //     )}
-    // </div>
   )
 }
