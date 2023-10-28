@@ -8,7 +8,7 @@ import { useState } from "react";
 import { EyeSlashFilledIcon } from "@/components/LoginIcons/EyeSlashedFilledIcon";
 import { EyeFilledIcon } from "@/components/LoginIcons/EyeFilledIcon";
 import Link from "next/link";
-import Messages from "./messages";
+import Messages from "../login/messages";
 
 export default function LoginForm() {
     const router = useRouter()
@@ -29,10 +29,14 @@ export default function LoginForm() {
             </Link>    
             <form
             className="bg-gray-200 flex flex-col justify-center items-center py-16 px-24 rounded-xl gap-6 shadow-2xl mt-8"
-            action="/auth/sign-in"
+            action="/auth/sign-up"
             method="post"
             >
-                <label className="text-3xl font-sans font-bold text-black">Faça seu Login!</label>
+                <label className="text-3xl font-sans font-bold text-black">Faça seu Cadastro!</label>
+
+                <Input type="text" label="Nome Completo" size="sm" variant="faded" radius="full" name="nome"/>
+                <Input type="text" label="Endereço" size="sm" variant="faded" radius="full" name="end"/>
+                <Input type="number" label="Telefone" size="sm" variant="faded" radius="full" name="tel"/>
 
                 <Input type="email" label="Email" size="sm" variant="faded" radius="full" name="email"/>
                 
@@ -54,24 +58,19 @@ export default function LoginForm() {
                 type={isVisible ? "text" : "password"}
                 />
 
-                <Button color="primary" variant="shadow" radius="full" size="lg" type="submit">Entrar</Button>
+                <Button color="primary" variant="shadow" radius="full" size="lg" type="submit">Cadastrar</Button>
 
                 <div>
                     <Link
-                    href="/signup"
+                    href="/login"
                     className='text-center text-black text-decoration-line: underline'>
-                        Não possuo uma conta
-                    </Link>
-                    <label> | </label>
-                    <Link
-                    href="#"
-                    className='text-center text-black text-decoration-line: underline'>
-                        Esqueci minha senha
+                        Já possuo uma conta
                     </Link>
                 </div>
-                <Messages />
+                
             </form>
+
+            <Messages />
         </div>
     )
   }
-  
