@@ -5,6 +5,7 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 import { useRouter, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
+import { Button, Divider, Input } from '@nextui-org/react'
 
 export default function UpdateClienteForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -207,146 +208,29 @@ export default function UpdateClienteForm({ session }: { session: Session | null
   }
 
   return (
-    <div className="form-widget flex flex-col gap-3">
-      <div className="flex flex-col">
-        <label htmlFor="nome">Nome</label>
-        <input
-          id="nome"
-          type="name"
-          value={nome || ''}
-          className="bg-zinc-200 rounded-md px-2"
-          placeholder="João Vitor"
-          onChange={(e) => setNome(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="sobrenome">Sobrenome</label>
-        <input
-          id="sobrenome"
-          type="sobrenome"
-          value={sobrenome || ''}
-          className="bg-zinc-200 rounded-md px-2"
-          placeholder="Helm"
-          onChange={(e) => setSobrenome(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="url"
-          value={email || ''}
-          placeholder="jvthelms@gmail.com"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="telefone_1">Telefone 1</label>
-        <input
-          id="telefone_1"
-          type="number"
-          value={telefone_1 || ""}
-          placeholder="51995605886"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setTelefone_1(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="telefone_2">Telefone 2</label>
-        <input
-          id="telefone_2"
-          type="number"
-          value={telefone_2|| ""}
-          placeholder="Opcional"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setTelefone_2(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="cpf">CPF</label>
-        <input
-          id="cpf"
-          type="number"
-          value={cpf || ""}
-          placeholder="60069515093"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setCpf(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="cidade">Cidade</label>
-        <input
-          id="cidade"
-          type="text"
-          value={cidade || ""}
-          placeholder="Gravataí"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setCidade(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="estado">Estado</label>
-        <input
-          id="estado"
-          type="text"
-          value={estado || ""}
-          placeholder="RS"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setEstado(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="bairro">Bairro</label>
-        <input
-          id="bairro"
-          type="text"
-          value={bairro || ""}
-          placeholder="Sítio Gaúcho"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setBairro(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="rua">Rua</label>
-        <input
-          id="rua"
-          type="text"
-          value={rua || ""}
-          placeholder="Rua Comandante Zero"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setRua(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="numero">Numero</label>
-        <input
-          id="numero"
-          type="number"
-          value={numero || ""}
-          placeholder="46"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setNumero(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="cep">CEP</label>
-        <input
-          id="cep"
-          type="number"
-          value={cep || ""}
-          placeholder="94195060"
-          className="bg-zinc-200 rounded-md px-2"
-          onChange={(e) => setCep(e.target.value)}
-        />
-      </div>
+    <div className='w-full flex flex-col justify-center items-center'>  
+      <form
+      className="bg-white flex flex-col justify-center items-center py-10 px-24 rounded-xl gap-4 shadow-2xl my-10">
+          <label className="text-3xl font-sans font-bold text-black">Atualização de Cliente</label>
+          <Divider/>
 
-        <button
-            className="py-2 px-4 rounded-md no-underline bg-black hover:bg-green-900 text-white"
-            onClick={() => updateCliente({ nome, sobrenome, email, telefone_1, telefone_2, cpf, cidade, estado, bairro, rua, numero, cep })}
-        >
-          Salvar
-        </button>
-    </div>
+          <Input isRequired label="Nome" size="sm" variant="faded" radius="full" value={nome} onChange={(e) => setNome(e.target.value)}/>
+          <Input isRequired label="Sobrenome" size="sm" variant="faded" radius="full" value={sobrenome} onChange={(e) => setSobrenome(e.target.value)}/>
+          <Input isRequired label="Email" size="sm" variant="faded" radius="full" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <Input isRequired label="Telefone" type="number" size="sm" variant="faded" radius="full" value={telefone_1} onChange={(e) => setTelefone_1(e.target.value)}/>
+          <Input isRequired label="CPF" type="number" size="sm" variant="faded" radius="full" value={cpf} onChange={(e) => setCpf(e.target.value)}/>
+          <Input isRequired label="Cidade" size="sm" variant="faded" radius="full" value={cidade} onChange={(e) => setCidade(e.target.value)}/>
+          <Input isRequired label="Estado" size="sm" variant="faded" radius="full" value={estado} onChange={(e) => setEstado(e.target.value)}/>
+          <Input isRequired label="Bairro" size="sm" variant="faded" radius="full" value={bairro} onChange={(e) => setBairro(e.target.value)}/>
+          <Input isRequired label="Rua" size="sm" variant="faded" radius="full" value={rua} onChange={(e) => setRua(e.target.value)}/>
+          <Input isRequired label="Numero" size="sm" variant="faded" radius="full" value={numero} onChange={(e) => setNumero(e.target.value)}/>
+          <Input isRequired label="CEP" type="number" size="sm" variant="faded" radius="full" value={cep} onChange={(e) => setCep(e.target.value)}/>
+
+          <Button color="primary" variant="shadow" radius="full" size="lg"
+          onClick={() => updateCliente({ nome, sobrenome, email, telefone_1, telefone_2, cpf, cidade, estado, bairro, rua, numero, cep })}>
+            Atualizar Cliente
+          </Button>
+      </form>
+  </div>
   )
 }

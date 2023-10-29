@@ -13,13 +13,10 @@ export default async function UpdateCustomer() {
   } = await supabase.auth.getSession()
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div>
       <NavBar session={session}/>
-        Formulário de atualização de clientes
 
-        <Back />
-
-        <UpdateClienteForm  session={session}/>
+      <UpdateClienteForm  session={session}/>
       
     </div>
   )
