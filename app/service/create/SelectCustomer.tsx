@@ -17,7 +17,6 @@ interface Cliente {
 export default function SelectCustomer({ clientes }: { clientes: Cliente[] | null}) {
 
   return (
-
     <div className='w-full flex justify-center items-center'>
       {clientes?.length != 0 ?
         <div className="grid grid-cols-3 gap-4 py-10">

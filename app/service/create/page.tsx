@@ -4,7 +4,6 @@ import Back from '@/components/Back'
 import NavBar from '@/components/NavBar'
 import { Database } from '@/supabase'
 import SelectCustomer from './SelectCustomer'
-import BotaoRedirecionarParaCadastro from '@/app/customer/show/BotaoRedirecionarParaCadastro'
 
 export default async function CadastrarServico() {
   const supabase = createServerComponentClient<Database>({ cookies })
