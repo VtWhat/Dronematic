@@ -3,9 +3,41 @@
 import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
 import {Image} from "@nextui-org/image";
+import { useEffect, useState } from "react";
+import wmo from "./wmo.json"
 
 export default function Menu() {
     const router = useRouter()
+
+    //Forecast
+    const [forecastData, setForecast] = useState<any>();
+
+    const getForecastData = async (lat: number, long: number) => {
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,is_day,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=America%2FSao_Paulo&forecast_days=1`);
+        const Forecast = await res.json()
+        setForecast(Forecast)
+    }
+
+    useEffect(() => {
+        if('geolocation' in navigator) {
+            // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+            navigator.geolocation.getCurrentPosition(({ coords }) => {
+                const { latitude, longitude } = coords;
+                getForecastData(latitude, longitude)
+            })
+        }
+    }, []);    
+
+    const isDay = forecastData?.current.is_day == 1 ? "day" : "night"
+
+    const weathercode = forecastData?.daily.weathercode ? forecastData.daily.weathercode : "3"
+    
+    //@ts-expect-error
+    const forecastAltText = wmo[weathercode][isDay]["description"]
+    //@ts-expect-error
+    const forecastSrc = wmo[weathercode][isDay]["image"]
+
+    console.log(forecastData)
 
     return (
         <div className='w-full flex justify-center items-center'>
@@ -28,19 +60,24 @@ export default function Menu() {
                 </CardBody>
             </Card>
 
-            <Card className="py-4" isPressable 
+            <Card className="p-4" isPressable 
             onClick={(e) => router.push('#')} >
-            <CardBody className="overflow-visible py-2">
+            <div className="flex flex-row text-black w-full">
+                <p className="items-start w-1/2 text-left font-bold">Gravataí</p>
+                <p className="items-end w-1/2 text-right">{`${new Date().getHours()}:${new Date().getMinutes()}`}</p>
+            </div>
+            <CardBody className="overflow-visible items-center">
                 <Image
-                    alt="Card background"
-                    className="object-cover rounded-xl"
-                    src="/dronematic-logo.png"
-                    width={270}
+                    alt={forecastAltText}
+                    className=""
+                    src={forecastSrc}
+                    width={180}
                 />
-                </CardBody>
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                <h4 className="font-bold text-large text-black">Meteorologia</h4>
-                </CardHeader>
+            </CardBody>
+            <div className="flex flex-row text-black w-full">
+                <p className="items-start w-1/2 text-left">{`${forecastData?.daily.precipitation_probability_max}%`}</p>
+                <p className="items-end w-1/2 text-right">{`${Math.round(forecastData?.daily.temperature_2m_min)}° - ${Math.round(forecastData?.daily.temperature_2m_max)}°`}</p>
+            </div>
             </Card>
 
             <Card className="py-4" isPressable 
