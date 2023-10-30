@@ -16,16 +16,15 @@ export default async function ExibirServicos() {
     data: servicos 
   } = await supabase.from('servicos').select('*, config(*), clientes(*)')
 
-
   const {
-    data: userprofile 
-  } = await supabase.from('userprofile').select('*').single()
+    data: userprofile
+  } = await supabase.from("userprofile").select("*").single()
 
   return (
     <div>
       <NavBar session={session}/>
 
-      <ServicesList servicos={servicos} userprofile-={userprofile}/>
+      <ServicesList servicos={servicos} userprofile={userprofile} session={session}/>
       
     </div>
   )

@@ -1,5 +1,5 @@
 'use client'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/supabase'
 import { Card, CardBody, CardHeader, Image, Button, Divider } from '@nextui-org/react'
 import Link from 'next/link'
@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from 'react'
 import jsPDFInvoiceTemplate from "./jsPDFInvoiceTemplate.js"
 
-export default function ServicesList({ servicos }: { servicos: any[] | null},  userprofile: any ) {
+export default function ServicesList({ servicos, userprofile, session} : { servicos: any[] | null, userprofile: any | null, session: Session | null}) {
   const supabase = createClientComponentClient<Database>()
   const router = useRouter()
-
+  
   const [lat, setLat] = useState<number>();
   const [long, setLong] = useState<number>();
 
@@ -26,8 +26,8 @@ export default function ServicesList({ servicos }: { servicos: any[] | null},  u
       }
   }, []);
 
-  const handleDelete = async (id: any) => {
-    const res = await supabase.from("servicos").delete().eq("servico_id", id)
+  const handleDelete = async (servico_id: any) => {
+    const res = await supabase.from("servicos").delete().eq("servico_id", servico_id)
     toast.success("Serviço excluido!")
     router.refresh()
   }
@@ -36,7 +36,7 @@ export default function ServicesList({ servicos }: { servicos: any[] | null},  u
     const pdfObject = {
         outputType: "dataurlnewwindow",
         returnJsPDFDocObject: false,
-        fileName: servico.clientes.nome + "-" + servico.clientes.sobrebome + "(" + new Date().toDateString() + ")",
+        fileName: servico.clientes.nome + "-" + servico.clientes.sobrenome + "(" + new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('/') + ")",
         orientationLandscape: false,
         compress: true,
         logo: {
@@ -64,7 +64,7 @@ export default function ServicesList({ servicos }: { servicos: any[] | null},  u
             name: userprofile.nome,
             address: userprofile.endereco,
             phone: userprofile.telefone,
-            email: userprofile.email,
+            email: session?.user.email,
             website: userprofile.website,
         },
         contact: {
@@ -78,8 +78,8 @@ export default function ServicesList({ servicos }: { servicos: any[] | null},  u
         invoice: {
             label: "Serviço#",
             num: servico.servico_id,
-            invDate: 'Agendado: ' + new Date(servico.date).toDateString(),
-            invGenDate: "Emitido: " + new Date().toDateString(),
+            invDate: 'Agendado: ' + new Date(servico.date).toISOString().replace(/T.*/,'').split('-').reverse().join('/'),
+            invGenDate: "Emitido: " + new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('/'),
             headerBorder: false,
             tableBodyBorder: false,
             header: [
@@ -101,7 +101,7 @@ export default function ServicesList({ servicos }: { servicos: any[] | null},  u
                 ["Descrição",servico.description],
                 ["Rota",servico.route],
                 ["Local de voo",servico.rua + ", " + servico.numero + ", " + servico.bairro + ", " + servico.cidade + ", " + servico.estado + ", " + servico.cep],
-                ["Data de voo", new Date(servico.date).toDateString()],
+                ["Data de voo", new Date(servico.date).toISOString().replace(/T.*/,'').split('-').reverse().join('/')],
                 ["Drone",servico.config.drone],
                 ["Câmera",servico.config.camera],
                 ["Filtro",servico.config.filter],
@@ -167,13 +167,25 @@ export default function ServicesList({ servicos }: { servicos: any[] | null},  u
                   </p>
                 </CardHeader>
                  <Divider className='mb-4'/>
-                 <div className='w-full'>
+                 <div className='w-full h-full flex flex-wrap justify-center gap-y-2 '>
+                    <Button variant='shadow' color='secondary' className='mx-2'
+                    onClick={() => {window.open("https://www.google.com/maps?q="+servico.rua+","+servico.numero+","+ servico.bairro +","+ servico.cidade +","+ servico.estado+ "," + servico.cep )}}
+                        >Abrir no Mapa
+                    </Button>
+                    <Button variant='shadow' color='secondary' className='mx-2'
+                    onClick={() => {window.open("https://www.google.com/maps/dir/"+lat+","+long+"/"+servico.rua+","+servico.numero+","+ servico.bairro +","+ servico.cidade +","+ servico.estado+ "," + servico.cep )}}
+                        >Traçar Rota
+                    </Button>                    
                     <Link href={{pathname: '/service/update', query: servicos ? "servico_id=" + (servico.servico_id).toString() : ""}}>
                       <Button variant='shadow' color='primary' className='mx-2'
-                          onClick={() => toast.loading("Carregando dados", {id:"upCliToast"})}
+                      onClick={() => toast.loading("Carregando dados", {id:"upCliToast"})}
                           >Editar
-                      </Button>
+                      </Button>                   
                     </Link>
+                    <Button variant='shadow' color='default' className='mx-2'
+                    onClick={() => {generatePDF({ servico })}}
+                        >Gerar PDF
+                    </Button>   
                     <Button variant='shadow' color='danger' className='mx-2'
                     onClick={() => {toast((t) => (
                         <div className="flex flex-col gap-3">
@@ -191,22 +203,6 @@ export default function ServicesList({ servicos }: { servicos: any[] | null},  u
                         </div>
                       ), {id:"1",duration: 12000, icon:'⚠'})}}
                         >Excluir
-                    </Button>
-                    <Button variant='shadow' color='secondary' className='mx-2'
-                    onClick={() => {window.open("https://www.google.com/maps?q="+servico.rua+","+servico.numero+","+ servico.bairro +","+ servico.cidade +","+ servico.estado+ "," + servico.cep )}}
-                        >Abrir no Mapa
-                    </Button>
-                    <Button variant='shadow' color='secondary' className='mx-2'
-                    onClick={() => {window.open("https://www.google.com/maps/dir/"+lat+","+long+"/"+servico.rua+","+servico.numero+","+ servico.bairro +","+ servico.cidade +","+ servico.estado+ "," + servico.cep )}}
-                        >Traçar Rota
-                    </Button>
-                    <Button variant='shadow' color='default' className='mx-2'
-                    onClick={() => {generatePDF({ servico })}}
-                        >Gerar PDF
-                    </Button>
-                    <Button variant='shadow' color='default' className='mx-2'
-                    onClick={() => {console.log(userprofile)}}
-                        >LOG
                     </Button>
                   </div>
             </Card>
