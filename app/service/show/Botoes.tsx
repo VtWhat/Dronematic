@@ -140,7 +140,7 @@ export default function Botoes(data: { servico_id: any, u_email: string}) {
         getServiceData()
       }, [ getServiceData])
 
-    const genPDF = async (id: any) => {
+    const generatePDF = (id: any) => {
             const pdfObject = {
                 outputType: "dataurlnewwindow",
                 returnJsPDFDocObject: false,
