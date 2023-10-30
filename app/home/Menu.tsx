@@ -30,7 +30,7 @@ export default function Menu() {
 
     const isDay = forecastData?.current.is_day == 1 ? "day" : "night"
 
-    const weathercode = forecastData?.daily.weathercode ? forecastData.daily.weathercode : "3"
+    const weathercode = forecastData?.current.weathercode ? forecastData.current.weathercode : "3"
     
     //@ts-expect-error
     const forecastAltText = wmo[weathercode][isDay]["description"]
@@ -60,13 +60,20 @@ export default function Menu() {
                 </CardBody>
             </Card>
 
-            <Card className="p-4" isPressable 
+            <Card className={
+            forecastData?.current.is_day == 1 ? "p-4 bg-gradient-to-br from-transparent to-sky-400" : "p-4 bg-gradient-to-br from-indigo-200 to-slate-700"
+            }
+            isPressable 
             onClick={(e) => router.push('#')} >
             <div className="flex flex-row text-black w-full">
                 <p className="items-start w-1/2 text-left font-bold">Gravataí</p>
-                <p className="items-end w-1/2 text-right">{`${new Date().getHours()}:${new Date().getMinutes()}`}</p>
+                <p className="items-end w-1/2 text-right">
+                    {Number(new Date().getHours()) < 10 ? `0${new Date().getHours()}:` : `${new Date().getHours()}:`}
+                    {Number(new Date().getMinutes()) < 10 ? `0${new Date().getMinutes()}` : `${new Date().getMinutes()}`}
+                </p>
             </div>
             <CardBody className="overflow-visible items-center">
+                <p className="absolute bottom-8 text-black text-xl font-bold">{`${Math.round(forecastData?.current.temperature_2m)}°`}</p>
                 <Image
                     alt={forecastAltText}
                     className=""
