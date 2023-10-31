@@ -13,6 +13,8 @@ import {Input} from "@nextui-org/input";
 import { Divider } from '@nextui-org/react'
 import {Select, SelectItem} from "@nextui-org/select";
 import {Textarea} from "@nextui-org/react";
+import wmo from "../../../home/wmo.json"
+import {Image} from "@nextui-org/image";
 
 export default function CadastrarServicoForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -373,7 +375,7 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
           <p>Data</p>
           <ReactCalendar
           minDate={new Date()}
-          className='REACT-CALENDAR p-2'
+          className='REACT-CALENDAR'
           view='month'
           defaultValue={new Date(2017, 0, 1)}
           onClickDay={(date) => setDiavoo(date)}
@@ -416,16 +418,54 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
                 } else
                 if(forecastData?.daily.precipitation_probability_max[i] > 60 && forecastData?.daily.precipitation_probability_max[i] <= 70){
                   return 'forecast_70'
-                }
+                } else
                 if(forecastData?.daily.precipitation_probability_max[i] > 70 && forecastData?.daily.precipitation_probability_max[i] <= 80){
                   return 'forecast_80'
-                }
+                } else
                 if(forecastData?.daily.precipitation_probability_max[i] > 80 && forecastData?.daily.precipitation_probability_max[i] <= 90){
                   return 'forecast_90'
-                }
+                } else
                 if(forecastData?.daily.precipitation_probability_max[i] > 90){
                   return 'forecast_100'
+                } else
+                if(forecastData?.daily.precipitation_probability_max[i] == null){
+                  return 'forecast_null'
                 }
+            }
+            }
+          }}
+          tileContent={({ date, view }) => {
+            if (
+                view === 'month' &&
+                date.getDate() === diavoo.getDate() &&
+                date.getMonth() === diavoo.getMonth() &&
+                date.getFullYear() === diavoo.getFullYear()
+              ) {
+                return <small className='flex flex-col text-xs items-center justify-center'>Agendado</small>;
+              }
+
+            for(let i = 0; i < forecastData?.daily.time.length; i++){
+              const isDay = "day"
+
+              const weathercode = forecastData?.daily.weathercode[i] ? forecastData.daily.weathercode[i] : "2"
+              
+              //@ts-expect-error
+              const forecastAltText = wmo[weathercode][isDay]["description"]
+              //@ts-expect-error
+              const forecastSrc = wmo[weathercode][isDay]["image"]
+
+              if (
+                date.getUTCDate() === new Date(forecastData?.daily.time[i]).getUTCDate() &&
+                date.getUTCMonth() === new Date(forecastData?.daily.time[i]).getUTCMonth() &&
+                date.getUTCFullYear() === new Date(forecastData?.daily.time[i]).getUTCFullYear()
+            ) {
+              return (
+                <Image
+                  alt={forecastAltText}
+                  className="-my-2"
+                  src={forecastSrc}
+                />
+              )
             }
             }
           }}

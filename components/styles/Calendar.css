@@ -1,9 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .react-calendar {
     width: 450px;
     max-width: 100%;
     background: white;
+    /* background-color: rgb(255, 255, 255); */
+    @apply bg-gradient-to-br from-transparent to-gray-200;
     border-radius: 15px;
-    border: 1px solid rgb(209 213 219);
+    border: 1px solid rgb(138, 138, 138);
     font-family: Manrope, Helvetica, sans-serif;
     line-height: 1.125em;
   }
@@ -65,7 +71,7 @@
     background-color: #e6e6e6;
   }
   .react-calendar__month-view__weekdays {
-    color: #4f46e5;
+    color: #757575;
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
@@ -149,17 +155,17 @@
   }
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
-    background-color: rgb(238 242 255);
+    outline: 1px solid rgb(0, 0, 0);
   }
   .react-calendar__tile--now {
     border-radius: 15px;
-    border: 2px solid #4f46e5 !important;
-    color: #4f46e5;
+    border: 3px solid #0000008c !important;
+    color: #000000;
   }
-  .react-calendar__tile--now:enabled:hover,
+  /* .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
     background-color: rgb(238 242 255);
-  }
+  } */
   .react-calendar__tile--hasActive {
     background: #76baff;
   }
@@ -167,47 +173,51 @@
   .react-calendar__tile--hasActive:enabled:focus {
     background: #a9d4ff;
   }
-  .react-calendar__tile--active:enabled:hover,
+  /* .react-calendar__tile--active:enabled:hover,
   .react-calendar__tile--active:enabled:focus {
-    background: #4f46e5;
+    background: #23830a;
     color: white;
-  }
+  } */
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: rgb(238 242 255);
   }
   .react-calendar .highlight_selected {
-    outline: 2px solid rgb(29, 114, 12);
+    /* outline: 2px solid #23830a; */
+    @apply outline-dotted outline-2 
   }
   .react-calendar .forecast_0 {
-    background-color: rgb(0, 255, 55);
+    @apply bg-gradient-to-t from-green-500 to-green-200
   }
   .react-calendar .forecast_10 {
-    background-color: rgb(0, 255, 55, 0.75);
+    @apply bg-gradient-to-b from-green-100 to-green-400
   }
   .react-calendar .forecast_20 {
-    background-color: rgb(0, 255, 55, 0.50);
+    @apply bg-gradient-to-b from-green-100 to-green-300
   }
   .react-calendar .forecast_30 {
-    background-color: rgb(0, 255, 0, 0.25);
+    @apply bg-gradient-to-b from-red-200 to-green-300
   }
   .react-calendar .forecast_40 {
-    background-color: rgb(255, 0, 0), 0.3;
+    @apply bg-gradient-to-b from-red-300 to-green-200
   }
   .react-calendar .forecast_50 {
-    background-color: rgb(255, 0, 0, 0.4);
+    @apply bg-gradient-to-b from-transparent to-red-100
   }
   .react-calendar .forecast_60 {
-    background-color: rgb(255, 0, 0, 0.5);
+    @apply bg-gradient-to-b from-red-100 to-red-200
   }
   .react-calendar .forecast_70 {
-    background-color: rgb(255, 0, 0, 0.6);
+    @apply bg-gradient-to-b from-red-100 to-red-300
   }
   .react-calendar .forecast_80 {
-    background-color: rgb(255, 0, 0, 0.7);
+    @apply bg-gradient-to-b from-red-100 to-red-400
   }
   .react-calendar .forecast_90 {
-    background-color: rgb(255, 0, 0, 0.8);
+    @apply bg-gradient-to-b from-red-100 to-red-500
   }
   .react-calendar .forecast_100 {
-    background-color: rgb(255, 0, 0);
+    @apply bg-gradient-to-b from-red-100 to-red-600
+  }
+  .react-calendar .forecast_null {
+    @apply bg-gradient-to-b from-transparent to-gray-400
   }

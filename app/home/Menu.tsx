@@ -30,7 +30,7 @@ export default function Menu() {
 
     const isDay = forecastData?.current.is_day == 1 ? "day" : "night"
 
-    const weathercode = forecastData?.current.weathercode ? forecastData.current.weathercode : "3"
+    const weathercode = forecastData?.current.weathercode ? forecastData.current.weathercode : "2"
     
     //@ts-expect-error
     const forecastAltText = wmo[weathercode][isDay]["description"]
