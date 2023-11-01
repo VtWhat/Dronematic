@@ -10,6 +10,8 @@ import { Button, Divider, Input } from '@nextui-org/react'
 export default function UpdateClienteForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
 
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
   const [nome, setNome] = useState<string>("")
   const [sobrenome, setSobrenome] = useState<string>("")
   const [email, setEmail] = useState<string>("")
@@ -106,6 +108,7 @@ export default function UpdateClienteForm({ session }: { session: Session | null
         setRua(data.rua)
         setNumero(data.numero)
         setCep(data.cep)
+        setIsLoaded(true)
         
         {toast.success("Dados carregados!", {id:"upCliToast"})}
       }
@@ -226,7 +229,7 @@ export default function UpdateClienteForm({ session }: { session: Session | null
           <Input isRequired label="Numero" size="sm" variant="faded" radius="full" value={numero} onChange={(e) => setNumero(e.target.value)}/>
           <Input isRequired label="CEP" type="number" size="sm" variant="faded" radius="full" value={cep} onChange={(e) => setCep(e.target.value)}/>
 
-          <Button color="primary" variant="shadow" radius="full" size="lg"
+          <Button color="primary" variant="shadow" radius="full" size="lg" isLoading={!isLoaded}
           onClick={() => updateCliente({ nome, sobrenome, email, telefone_1, telefone_2, cpf, cidade, estado, bairro, rua, numero, cep })}>
             Atualizar Cliente
           </Button>

@@ -11,6 +11,8 @@ import {Input} from "@nextui-org/input";
 export default function UpdateUserProfileForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
 
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
   const [nome, setNome] = useState<string>("")
   const [endereco, setEndereco] = useState<string>("")
   const [email, setEmail] = useState<string | undefined>("")
@@ -56,6 +58,7 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
         setEndereco(data.endereco)
         setTelefone(data.telefone)
         setWebsite(data.website)
+        setIsLoaded(true)
 
         {toast.success("Dados carregados!", {id:"upCliToast"})}
       }
@@ -133,7 +136,7 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
           <Input isReadOnly label="Email" value={email || ''} size="sm" variant="faded" radius="full"/>
           <Input isReadOnly label="Senha" value={"********"} size="sm" variant="faded" radius="full"/>
 
-          <Button color="primary" variant="shadow" radius="full" size="lg"
+          <Button color="primary" variant="shadow" radius="full" size="lg" isLoading={!isLoaded}
           onClick={() => updateUser()}>
             Salvar Dados
           </Button>

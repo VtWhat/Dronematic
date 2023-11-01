@@ -16,6 +16,8 @@ import {Image} from "@nextui-org/image";
 export default function UpdateServiceForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
 
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
   const user = session?.user
   const router = useRouter()
   const serviceID = Number(useSearchParams().get('servico_id'))
@@ -287,6 +289,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
         setIsol(data.config.auto_iso_limit)
         setShutter(data.config.shutter)
         setWb(data.config.wb)
+        setIsLoaded(true)
         
         {toast.success("Dados carregados!", {id:"upCliToast"})}
       }
@@ -587,7 +590,7 @@ export default function UpdateServiceForm({ session }: { session: Session | null
             ))}
           </Select>
 
-          <Button color="primary" variant="shadow" radius="full" size="lg"
+          <Button color="primary" variant="shadow" radius="full" size="lg" isLoading={!isLoaded}
           onClick={() => updateServico()}>
             Atualizar Serviço
           </Button>

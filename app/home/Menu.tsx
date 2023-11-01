@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { Card, CardHeader, CardBody, Spinner, Skeleton } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, Skeleton } from "@nextui-org/react";
 import {Image} from "@nextui-org/image";
 import { useEffect, useState } from "react";
 import wmo from "./wmo.json"
