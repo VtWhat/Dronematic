@@ -131,10 +131,15 @@ export default function ServicesList({ servicos, userprofile, session} : { servi
     jsPDFInvoiceTemplate(pdfObject)
 }
 
+let cols =
+servicos?.length == 1 ? 1 :
+servicos?.length == 2 ? 2 :
+servicos?.length == 3 ? 3 : 3
+
   return (
     <div className='w-full flex justify-center items-center'>
       {servicos?.length != 0 ?
-        <div className="grid grid-cols-3 gap-4 py-10">
+        <div className={`grid grid-cols-${cols} gap-4 py-10`}>
           {servicos?.map((servico) => 
             <Card className="p-4 w-96" isPressable >
                 <CardHeader className="flex flex-col items-start truncate">
