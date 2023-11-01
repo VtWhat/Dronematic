@@ -2,7 +2,9 @@
 
 import toast from 'react-hot-toast'
 import Link from 'next/link'
-import { Card, CardBody, CardHeader, Image } from '@nextui-org/react'
+import { Button, Card, CardBody, CardHeader, Image } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
+
 
 interface Cliente {
   cliente_id: number,
@@ -15,6 +17,7 @@ interface Cliente {
 }
 
 export default function SelectCustomer({ clientes }: { clientes: Cliente[] | null}) {
+  const router = useRouter()
 
   return (
     <div className='w-full flex justify-center items-center'>
@@ -39,7 +42,21 @@ export default function SelectCustomer({ clientes }: { clientes: Cliente[] | nul
           </Link>
           )}
         </div>
-       : "" }
+       :
+       <div className='py-10 flex items-center justify-center'> 
+        <Card className='p-4 w-full'>
+            <CardHeader className='text-black w-full'>
+                  Você precisa ter ao menos um cliente cadastrado para poder cadastrar um serviço!
+            </CardHeader>
+            <div className='w-full flex justify-center items-center'>
+              <Button color="primary" variant="shadow" radius="full" size="lg" className='w-1/3'
+              onClick={() => router.push('/customer/create')}
+              >Cadastro de Clientes
+              </Button>
+            </div>
+        </Card> 
+      </div>
+       }
     </div>
   )
 }

@@ -95,7 +95,21 @@ export default function CustomerList({ clientes }: { clientes: Cliente[] | null}
             </Card>
           )}
         </div>
-       : "" }
+       :
+        <div className='py-10 flex items-center justify-center'> 
+          <Card className='p-4 w-full'>
+              <CardHeader className='text-black w-full'>
+                    Você não possui nenhum cliente cadastrado!
+              </CardHeader>
+              <div className='w-full flex justify-center items-center'>
+                <Button color="primary" variant="shadow" radius="full" size="lg" className='w-1/2'
+                onClick={() => router.push('/customer/create')}
+                >Cadastro de Clientes
+                </Button>
+              </div>
+          </Card> 
+        </div>
+        }
     </div>
   )
 }

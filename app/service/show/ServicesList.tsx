@@ -208,7 +208,21 @@ export default function ServicesList({ servicos, userprofile, session} : { servi
             </Card>
           )}
         </div>
-       : <p>Oops...</p> }
+       : 
+        <div className='py-10 flex items-center justify-center'> 
+            <Card className='p-4 w-full'>
+                <CardHeader className='text-black w-full'>
+                        Você não possui nenhum serviço cadastrado!
+                </CardHeader>
+                <div className='w-full flex justify-center items-center'>
+                    <Button color="primary" variant="shadow" radius="full" size="lg" className='w-1/2'
+                    onClick={() => router.push('/service/create')}
+                    >Cadastro de Serviços
+                    </Button>
+                </div>
+            </Card> 
+        </div>
+        }
     </div>
   )
 }
