@@ -43,12 +43,12 @@ export default function Menu() {
 
     return (
         <div className='w-full flex justify-center items-center'>
-            <div className="grid grid-cols-3 grid-rows-2 gap-4 p-10 w-1/2">
+            <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-rows-2 gap-4 p-10 md:w-1/2 sm:w-auto">
             <Card 
-            className="py-4 col-span-2 flex flex-row overflow-visible justify-center items-center" 
+            className="py-4 md:col-span-2 flex md:flex-row overflow-visible justify-center items-center" 
             isPressable 
             onClick={(e) => router.push('/service/show')} >
-                <CardHeader className="pl-6 flex-col w-1/2 items-start">
+                <CardHeader className="md:pl-6 flex-col md:w-1/2 items-start">
                 <h4 className="font-bold text-large text-black">Agenda de Voos</h4>
                 <p className='text-black text-justify text-small'>Visualize aqui sua agenda de voos e todas as informações pertinentes a eles,
                 como local de voo, rotas para o local, horários entre outras informações</p>
@@ -56,7 +56,7 @@ export default function Menu() {
                 <CardBody className="overflow-visible">
                 <Image
                     alt="Card background"
-                    className="object-cover overflow-visible h-52 w-96"
+                    className="object-cover overflow-visible h-52 w-96 md:my-0 -my-14" 
                     src="/HomeDrone.png"
                 />
                 </CardBody>
@@ -92,7 +92,7 @@ export default function Menu() {
             
             <Card className="py-4" isPressable 
             onClick={(e) => router.push('/customer/create')} >
-            <CardBody className="overflow-visible py-2">
+            <CardBody className="overflow-visible py-2 flex items-center">
                 <Image
                     alt="Card background"
                     className="object-cover rounded-xl h-36"
@@ -110,7 +110,7 @@ export default function Menu() {
 
             <Card className="py-4" isPressable 
             onClick={(e) => router.push('/service/create')} >
-            <CardBody className="overflow-visible py-2">
+            <CardBody className="overflow-visible py-2  flex items-center">
                 <Image
                     alt="Card background"
                     className="object-cover rounded-xl h-36"
@@ -128,7 +128,7 @@ export default function Menu() {
 
             <Card className="py-4" isPressable 
             onClick={(e) => router.push('/manage')} >
-            <CardBody className="overflow-visible py-2">
+            <CardBody className="overflow-visible py-2  flex items-center">
                 <Image
                     alt="Card background"
                     className="object-cover rounded-xl h-36"

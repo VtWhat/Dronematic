@@ -9,11 +9,11 @@ export default function ManageMenu() {
 
     return (
         <div className='w-full flex justify-center items-center'>
-            <div className="grid grid-cols-3 gap-4 py-10 w-1/2">
+            <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-4 py-10 md:w-1/2">
 
             <Card className="py-4" isPressable 
             onClick={(e) => router.push('/customer/show')} >
-            <CardBody className="overflow-visible py-2">
+            <CardBody className="overflow-visible py-2  flex items-center">
                 <Image
                     alt="Card background"
                     className="object-cover rounded-xl h-36"
@@ -31,7 +31,7 @@ export default function ManageMenu() {
 
             <Card className="py-4" isPressable 
             onClick={(e) => router.push('/service/show')} >
-            <CardBody className="overflow-visible py-2">
+            <CardBody className="overflow-visible py-2  flex items-center">
                 <Image
                     alt="Card background"
                     className="object-cover rounded-xl h-36"
