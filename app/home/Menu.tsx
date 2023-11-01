@@ -62,7 +62,7 @@ export default function Menu() {
                 </CardBody>
             </Card>
 
-            <Skeleton isLoaded={isLoaded} className="rounded-lg" classNames={{base: "bg-gradient-to-br from-transparent to-gray-500"}}>
+            <Skeleton isLoaded={isLoaded} className="rounded-lg" classNames={{base: !isLoaded ? "bg-gradient-to-br from-transparent to-gray-500 after:bg-transparent" : ""}}>
             <Card className={
             forecastData?.current.is_day == 1 ? "p-4 bg-gradient-to-br from-transparent to-sky-400" : "p-4 bg-gradient-to-br from-indigo-200 to-slate-700 w-full h-full"}
             isPressable 
