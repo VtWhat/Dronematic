@@ -1,13 +1,14 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { Card, CardHeader, CardBody } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, Spinner, Skeleton } from "@nextui-org/react";
 import {Image} from "@nextui-org/image";
 import { useEffect, useState } from "react";
 import wmo from "./wmo.json"
 
 export default function Menu() {
     const router = useRouter()
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     //Forecast
     const [forecastData, setForecast] = useState<any>();
@@ -16,6 +17,7 @@ export default function Menu() {
         const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,is_day,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=America%2FSao_Paulo&forecast_days=1`);
         const Forecast = await res.json()
         setForecast(Forecast)
+        setIsLoaded(true)
     }
 
     useEffect(() => {
@@ -60,33 +62,34 @@ export default function Menu() {
                 </CardBody>
             </Card>
 
+            <Skeleton isLoaded={isLoaded} className="rounded-lg" classNames={{base: "bg-gradient-to-br from-transparent to-gray-500"}}>
             <Card className={
-            forecastData?.current.is_day == 1 ? "p-4 bg-gradient-to-br from-transparent to-sky-400" : "p-4 bg-gradient-to-br from-indigo-200 to-slate-700"
-            }
+            forecastData?.current.is_day == 1 ? "p-4 bg-gradient-to-br from-transparent to-sky-400" : "p-4 bg-gradient-to-br from-indigo-200 to-slate-700 w-full h-full"}
             isPressable 
             onClick={(e) => router.push('#')} >
-            <div className="flex flex-row text-black w-full">
-                <p className="items-start w-1/2 text-left font-bold">Gravataí</p>
-                <p className="items-end w-1/2 text-right">
-                    {Number(new Date().getHours()) < 10 ? `0${new Date().getHours()}:` : `${new Date().getHours()}:`}
-                    {Number(new Date().getMinutes()) < 10 ? `0${new Date().getMinutes()}` : `${new Date().getMinutes()}`}
-                </p>
-            </div>
-            <CardBody className="overflow-visible items-center">
-                <p className="absolute bottom-8 text-black text-xl font-bold">{`${Math.round(forecastData?.current.temperature_2m)}°`}</p>
-                <Image
-                    alt={forecastAltText}
-                    className=""
-                    src={forecastSrc}
-                    width={180}
-                />
-            </CardBody>
-            <div className="flex flex-row text-black w-full">
-                <p className="items-start w-1/2 text-left">{`${forecastData?.daily.precipitation_probability_max}%`}</p>
-                <p className="items-end w-1/2 text-right">{`${Math.round(forecastData?.daily.temperature_2m_min)}° - ${Math.round(forecastData?.daily.temperature_2m_max)}°`}</p>
-            </div>
+                <div className="flex flex-row text-black w-full">
+                    <p className="items-start w-1/2 text-left font-bold">Gravataí</p>
+                    <p className="items-end w-1/2 text-right">
+                        {Number(new Date().getHours()) < 10 ? `0${new Date().getHours()}:` : `${new Date().getHours()}:`}
+                        {Number(new Date().getMinutes()) < 10 ? `0${new Date().getMinutes()}` : `${new Date().getMinutes()}`}
+                    </p>
+                </div>
+                <CardBody className="overflow-visible items-center">
+                    <p className="absolute bottom-8 text-black text-xl font-bold">{`${Math.round(forecastData?.current.temperature_2m)}°`}</p>
+                    <Image
+                        alt={forecastAltText}
+                        className=""
+                        src={forecastSrc}
+                        width={180}
+                    />
+                </CardBody>
+                <div className="flex flex-row text-black w-full">
+                    <p className="items-start w-1/2 text-left">{`${forecastData?.daily.precipitation_probability_max}%`}</p>
+                    <p className="items-end w-1/2 text-right">{`${Math.round(forecastData?.daily.temperature_2m_min)}° - ${Math.round(forecastData?.daily.temperature_2m_max)}°`}</p>
+                </div>
             </Card>
-
+            </Skeleton>
+            
             <Card className="py-4" isPressable 
             onClick={(e) => router.push('/customer/create')} >
             <CardBody className="overflow-visible py-2">
