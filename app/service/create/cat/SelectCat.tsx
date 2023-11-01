@@ -41,7 +41,7 @@ export default function SelectCat() {
 
   return (
     <div className='w-full flex justify-center items-center'>
-        <div className="grid grid-cols-3 grid-rows-2 gap-4 p-10 w-1/2">
+        <div className="grid md:grid-cols-3 sm:grid-cols-1 md:grid-rows-2 gap-4 p-10 md:w-1/2">
         {categorias?.map((cat, index) =>
           <Link href={{
                     pathname: '/service/create/form',
