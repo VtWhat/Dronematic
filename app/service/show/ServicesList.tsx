@@ -136,8 +136,6 @@ servicos?.length == 1 ? 1 :
 servicos?.length == 2 ? 2 :
 servicos?.length == 3 ? 3 : 3
 
-console.log(servicos?.length, cols)
-
   return (
     <div className='w-full flex justify-center items-center'>
       {servicos?.length != 0 ?
