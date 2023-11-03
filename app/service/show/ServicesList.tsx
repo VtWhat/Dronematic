@@ -136,10 +136,12 @@ servicos?.length == 1 ? 1 :
 servicos?.length == 2 ? 2 :
 servicos?.length == 3 ? 3 : 3
 
+console.log(servicos?.length, cols)
+
   return (
     <div className='w-full flex justify-center items-center'>
       {servicos?.length != 0 ?
-        <div className={`grid grid-cols-${cols} gap-4 py-10`}>
+        <div className={`grid md:grid-cols-${cols} sm:grid-cols-1 gap-4 py-10`}>
           {servicos?.map((servico) => 
             <Card className="p-4 w-96" isPressable >
                 <CardHeader className="flex flex-col items-start truncate">
