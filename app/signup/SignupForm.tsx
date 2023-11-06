@@ -18,7 +18,7 @@ export default function LoginForm() {
     const toggleVisibility = () => setIsVisible(!isVisible);
 
     return (
-        <div className='w-full flex flex-col justify-center items-center mt-16'>
+        <div className='md:w-full w-auto px-4 flex flex-col justify-center items-center mt-16'>
             <Link href="/">
                 <Image
                 src="/dronematic-logo.png"
@@ -28,11 +28,11 @@ export default function LoginForm() {
                 />
             </Link>    
             <form
-            className="bg-white flex flex-col justify-center items-center py-16 px-24 rounded-xl gap-6 shadow-2xl mt-8"
+            className="bg-white flex flex-col justify-center items-center md:py-16 md:px-24 py-12 px-16 rounded-xl gap-6 shadow-2xl mt-8"
             action="/auth/sign-up"
             method="post"
             >
-                <label className="text-3xl font-sans font-bold text-black">Faça seu Cadastro!</label>
+                <label className="truncate text-3xl font-sans font-bold text-black">Faça seu Cadastro!</label>
 
                 <Input type="text" label="Nome Completo" size="sm" variant="faded" radius="full" name="nome"/>
                 <Input type="text" label="Endereço" size="sm" variant="faded" radius="full" name="end"/>
