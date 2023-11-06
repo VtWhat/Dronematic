@@ -36,5 +36,7 @@ export const config = {
     '/home',
     '/customer/:path*',
     '/service/:path*',
+    '/manage/:path*',
+    '/user/:path*',
   ],
 }
