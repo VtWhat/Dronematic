@@ -351,9 +351,9 @@ export default function CadastrarServicoForm({ session }: { session: Session | n
   }
 
   return (
-    <div className='md:w-full flex justify-center items-center'>  
+    <div className='md:w-1/3 flex justify-center items-center'>  
       <form
-      className="bg-white flex flex-col justify-center items-center py-10 md:px-20 rounded-xl gap-4 shadow-2xl my-10">
+      className="bg-white flex flex-col justify-center items-center py-10 md:px-20 px-4 rounded-xl gap-4 shadow-2xl my-10">
           <label className="text-3xl font-sans font-bold text-black">Cadastro de Serviço</label>
           <Divider />
           <p>Cliente</p>

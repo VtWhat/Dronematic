@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 .react-calendar {
-    width: 450px;
-    max-width: 100%;
+    /* width: 450px;
+    max-width: 100%; */
+    @apply md:w-full;
     background: white;
     /* background-color: rgb(255, 255, 255); */
     @apply bg-gradient-to-br from-transparent to-gray-200;

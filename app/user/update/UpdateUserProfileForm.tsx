@@ -126,7 +126,7 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
   return (
     <div className='w-full flex flex-col justify-center items-center'>  
       <form
-      className="bg-white flex flex-col justify-center items-center py-10 px-24 rounded-xl gap-4 shadow-2xl my-10">
+      className="bg-white flex flex-col justify-center items-center py-10 md:px-24 px-16 rounded-xl gap-4 shadow-2xl my-10">
           <label className="text-3xl font-sans font-bold text-black">Dados do Usuário</label>
 
           <Input label="Nome Completo" size="sm" value={nome || ''} variant="faded" radius="full" onChange={(e) => setNome(e.target.value)}/>
