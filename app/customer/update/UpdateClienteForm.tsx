@@ -32,55 +32,48 @@ export default function UpdateClienteForm({ session }: { session: Session | null
   const ClienteSchema = z.object({
     Nome: 
       z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres").
-      toUpperCase(),
+      min(3, "inválido").
+      max(100, "excede o limite de 100 caractéres"),
     Sobrenome: 
       z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres").
-      toUpperCase(),
+      min(3, "inválido").
+      max(100, "excede o limite de 100 caractéres"),
     Email: 
       z.string().
-      max(100, "Máximo 100 caractéres").
-      email("Por favor insira um email válido").
-      toUpperCase(),
+      max(100, "excede o limite de 100 caractéres").
+      email("inválido"),
     Telefone_1: 
       z.string().
-      min(8, "Mínimo 8 digitos").
-      max(15, "Máximo 15 digitos"),
+      min(8, "inválido").
+      max(15, "inválido"),
     Telefone_2: 
       z.string().
       optional(),
     CPF: 
       z.string().
-      length(11, "Deve ser composto por 11 digitos"),
+      length(11, "inválido"),
     Cidade: 
       z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres").
-      toUpperCase(),
+      min(3, "inválida").
+      max(100, "excede o limite de 100 caractéres"),
     Estado: 
       z.string().
-      length(2, "Insira somente a sigla do estado").
-      toUpperCase(),
+      length(2, "insira somente a sigla"),
     Bairro: 
       z.string().
-      min(2, "Mínimo 2 caractéres").
-      max(60, "Máximo 60 caractéres").
-      toUpperCase(),
+      min(2, "inválido").
+      max(100, "excede o limite de 100 caractéres"),
     Rua: 
       z.string().
-      min(2, "Mínimo 2 caractéres").
-      max(60, "Máximo 60 caractéres").
-      toUpperCase(),
+      min(2, "inválida").
+      max(100, "excede o limite de 100 caractéres"),
     Numero: 
       z.string().
-      min(1, "Mínimo 1 dígito").
-      max(10, "Máximo 10 dígitos"),
+      min(1, "inválido").
+      max(10, "excede o limite de 10 dígitos"),
     Cep: 
       z.string().
-      length(8, "Deve ser composto por 8 dígitos"),
+      length(8, "inválido"),
     })
 
   const getProfile = useCallback(async () => {
@@ -173,8 +166,8 @@ export default function UpdateClienteForm({ session }: { session: Session | null
       result.error.issues.forEach((issue) => {
         let errorMessage = ""
 
-        errorMessage = issue.path + ": " + issue.message + ". ";
-        toast.error(errorMessage)
+        errorMessage = `${issue.path} ${issue.message}.`;
+        toast.error(errorMessage, {id:errorMessage})
       })
 
 

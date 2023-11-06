@@ -26,16 +26,16 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
   const userProfileSchema = z.object({
     Nome: 
       z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres"),
+      min(3, "inválido").
+      max(100, "excede o limite de 100 caractéres"),
     Endereco: 
       z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres"),
+      min(3, "inválido").
+      max(200, "excede o limite de 200 caractéres"),
     Telefone: 
       z.string().
-      min(8, "Mínimo 8 digitos").
-      max(15, "Máximo 15 digitos"),
+      min(8, "inválido").
+      max(15, "inválido"),
     Website: 
       z.string().optional()
     })
@@ -87,8 +87,8 @@ export default function UpdateUserProfileForm({ session }: { session: Session | 
       result.error.issues.forEach((issue) => {
         let errorMessage = ""
 
-        errorMessage = issue.path + ": " + issue.message + ". ";
-        toast.error(errorMessage)
+        errorMessage = `${issue.path} ${issue.message}.`;
+        toast.error(errorMessage, {id:errorMessage})
       })
 
     }else{

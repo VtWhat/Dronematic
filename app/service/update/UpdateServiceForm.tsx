@@ -219,30 +219,30 @@ export default function UpdateServiceForm({ session }: { session: Session | null
   const ServicoSchema = z.object({
     Cidade: 
       z.string().
-      min(3, "Mínimo 3 caractéres").
-      max(60, "Máximo 60 caractéres"),
+      min(3, "inválida").
+      max(100, "excede o limite de 100 caractéres"),
     Estado: 
       z.string().
-      length(2, "Insira somente a sigla do estado"),
+      length(2, "insira somente a sigla"),
     Bairro:
       z.string().
-      min(2, "Mínimo 2 caractéres").
-      max(60, "Máximo 60 caractéres"),
+      min(2, "inválido").
+      max(100, "excede o limite de 100 caractéres"),
     Rua: 
       z.string().
-      min(2, "Mínimo 2 caractéres").
-      max(60, "Máximo 60 caractéres"),
+      min(2, "inválida").
+      max(100, "excede o limite de 100 caractéres"),
     Numero: 
       z.string().
-      min(1, "Mínimo 1 dígito").
-      max(10, "Máximo 10 dígitos"),
+      min(1, "inválido").
+      max(10, "excede o limite de 10 dígitos"),
     Cep: 
       z.string().
-      length(8, "Deve ser composto por 8 dígitos"),
-    Descrição: z.string({required_error: "Forneça uma descrição"}),
-    Data: z.date().min(zodMinDate, {message: "Selecione uma Data"}),
-    Drone: z.string().min(1, "Selecione o Drone"),
-    Camera: z.string().min(1, "Selecione a Câmera")
+      length(8, "inválido"),
+    Descrição: z.string().min(1, "obrigatória"),
+    Data: z.date().min(zodMinDate, {message: "não selecionada"}),
+    Drone: z.string().min(1, "não selecionado"),
+    Camera: z.string().min(1, "não selecionada")
     })
 
   const getService = useCallback(async () => {
@@ -323,8 +323,8 @@ export default function UpdateServiceForm({ session }: { session: Session | null
       result.error.issues.forEach((issue) => {
         let errorMessage = ""
 
-        errorMessage = issue.path + ": " + issue.message + ". ";
-        toast.error(errorMessage)
+        errorMessage = `${issue.path} ${issue.message}.`;
+        toast.error(errorMessage, {id:errorMessage})
       })
 
     }else{

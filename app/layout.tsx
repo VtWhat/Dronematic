@@ -24,6 +24,13 @@ export default function RootLayout({
           <Toaster
           position="top-right"
           reverseOrder={false}
+          gutter={12}
+          toastOptions={{
+            className: '',
+            style: {
+
+            },
+          }}
           />
         </body>
       </html>
