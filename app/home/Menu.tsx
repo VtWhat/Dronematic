@@ -68,7 +68,7 @@ export default function Menu() {
             isPressable 
             onClick={(e) => router.push('#')} >
                 <div className="flex flex-row text-black w-full">
-                    <p className="items-start w-1/2 text-left font-bold">Gravataí</p>
+                    <p className="items-start w-1/2 text-left font-bold">Agora</p>
                     <p className="items-end w-1/2 text-right">
                         {Number(new Date().getHours()) < 10 ? `0${new Date().getHours()}:` : `${new Date().getHours()}:`}
                         {Number(new Date().getMinutes()) < 10 ? `0${new Date().getMinutes()}` : `${new Date().getMinutes()}`}
